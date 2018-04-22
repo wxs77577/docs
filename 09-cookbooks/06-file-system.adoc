@@ -1,7 +1,7 @@
 ---
-title: File System
 permalink: file-system
-category: cookbooks
+title: 文件系统
+category: 手册
 ---
 = File System
 

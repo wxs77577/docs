@@ -1,6 +1,6 @@
 ---
-title: Websocket client
 permalink: websocket-client
+title: Websocket客户端
 category: websockets
 ---
 = Websocket client

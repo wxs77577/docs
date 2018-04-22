@@ -1,7 +1,7 @@
 ---
 permalink: configuration-and-env
-title: Configuration and Env
-category: getting-started
+title: 配置和环境变量
+category: 起步
 ---
 = Configuration and Env
 

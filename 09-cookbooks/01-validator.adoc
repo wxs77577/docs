@@ -1,7 +1,7 @@
 ---
-title: Validator
 permalink: validator
-category: cookbooks
+title: 验证器
+category: 手册
 ---
 = Validator
 

@@ -1,7 +1,7 @@
 ---
 permalink: ignitor
 title: Ignitor
-category: internals
+category: 核心
 ---
 = Ignitor
 

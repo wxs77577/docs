@@ -1,7 +1,7 @@
 ---
 permalink: csrf
-title: CSRF protection
-category: web-security
+title: CSRF保护
+category: Web安全
 ---
 = CSRF protection
 

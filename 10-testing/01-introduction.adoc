@@ -1,7 +1,7 @@
 ---
 permalink: testing
-title: Introduction
-category: testing
+title: 介绍
+category: 测试
 ---
 = Introduction
 

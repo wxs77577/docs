@@ -1,7 +1,7 @@
 ---
 permalink: extending-adonisjs
-title: Extending AdonisJs
-category: cookbooks
+title: 扩展AdonisJs
+category: 手册
 ---
 = Extending AdonisJs
 

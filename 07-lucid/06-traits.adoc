@@ -1,6 +1,6 @@
 ---
-title: Traits
 permalink: traits
+title: 特性(Traits)
 category: lucid
 ---
 = Traits

@@ -1,7 +1,7 @@
 ---
 permalink: http-context
-title: Introduction
-category: http-lifecycle
+title: 介绍
+category: HTTP生命周期
 ---
 = Introduction
 

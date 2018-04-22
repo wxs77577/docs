@@ -1,9 +1,9 @@
 ---
 permalink: folder-structure
-title: Folder structure
-category: getting-started
+title: 文件夹结构
+category: 起步
 ---
-= Folder structure
+= 文件夹结构
 
 toc::[]
 

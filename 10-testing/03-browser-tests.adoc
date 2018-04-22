@@ -1,7 +1,7 @@
 ---
 permalink: browser-tests
-title: Browser tests
-category: testing
+title: 浏览器测试
+category: 测试
 ---
 = Browser tests
 

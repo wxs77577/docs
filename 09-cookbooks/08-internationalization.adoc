@@ -1,7 +1,7 @@
 ---
-title: Internationalization
 permalink: internationalization
-category: cookbooks
+title: 国际化
+category: 手册
 ---
 = Internationalization
 

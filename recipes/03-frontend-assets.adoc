@@ -1,7 +1,7 @@
 ---
 permalink: frontend-assets
-title: Managing frontend assets
-category: recipes
+title: 管理前端资源
+category: 技巧
 ---
 = Managing frontend assets
 
@@ -35,7 +35,7 @@ First, make sure to install webpack as a dev dependency and create the config fi
 
 [source, bash]
 ----
-npm i --save-dev webpack@3
+npm i --save-dev webpack
 
 touch webpack.config.js
 ----

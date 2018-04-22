@@ -1,6 +1,6 @@
 ---
 permalink: database-getters-setters
-title: Getters & Setters
+title: 访问器和修改器(Getters & Setters)
 category: lucid
 ---
 = Getters & Setters

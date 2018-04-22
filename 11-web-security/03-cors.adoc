@@ -1,7 +1,7 @@
 ---
 permalink: cors
 title: CORS
-category: web-security
+category: Web安全
 ---
 = CORS
 

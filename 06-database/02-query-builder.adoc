@@ -1,7 +1,7 @@
 ---
 permalink: query-builder
-title: Query builder
-category: database
+title: 查询构建器(Query builder)
+category: 数据库
 ---
 = Query builder
 

@@ -1,7 +1,7 @@
 ---
 permalink: request
-title: Request
-category: http-lifecycle
+title: 请求
+category: HTTP生命周期
 ---
 = Request
 

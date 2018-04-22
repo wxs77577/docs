@@ -1,9 +1,9 @@
 ---
-title: Upgrading from 4.0
+title: 从4.0升级
 permalink: upgrade-guide
-category: introduction
+category: 介绍
 ---
-= Upgrading from 4.0
+= 从4.0升级
 
 toc::[]
 

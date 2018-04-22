@@ -1,7 +1,7 @@
 ---
 permalink: dev-domains
-title: Using .dev domains
-category: recipes
+title: 使用.dev域名
+category: 技巧
 ---
 = Using .dev domains
 

@@ -1,7 +1,7 @@
 ---
 permalink: using-https
-title: Using Https
-category: recipes
+title: 使用Https
+category: 技巧
 ---
 toc::[]
 

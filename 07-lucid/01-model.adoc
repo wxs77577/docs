@@ -1,6 +1,6 @@
 ---
-title: Lucid Models
 permalink: lucid
+title: Lucid模型
 category: lucid
 ---
 = Lucid Models

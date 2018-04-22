@@ -1,7 +1,7 @@
 ---
 permalink: why-adonis-install
-title: Why Adonis install?
-category: recipes
+title: 为什么要使用Adonis install?
+category: 技巧
 ---
 = Why Adonis install?
 

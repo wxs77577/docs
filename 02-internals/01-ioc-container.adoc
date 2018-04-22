@@ -1,9 +1,9 @@
 ---
 permalink: ioc-container
-title: Ioc container
-category: internals
+title: Ioc容器
+category: 核心
 ---
-= Ioc container
+= Ioc容器
 
 toc::[]
 

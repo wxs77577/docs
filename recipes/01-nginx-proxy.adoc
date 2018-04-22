@@ -1,7 +1,7 @@
 ---
 permalink: nginx-proxy
-title: Nginx proxy
-category: recipes
+title: Nginx代理
+category: 技巧
 ---
 = Nginx proxy
 

@@ -1,7 +1,7 @@
 ---
-title: Mail
 permalink: mail
-category: cookbooks
+title: 邮件
+category: 手册
 ---
 = Mail
 

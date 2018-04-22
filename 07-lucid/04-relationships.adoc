@@ -1,6 +1,6 @@
 ---
-title: Relationships
 permalink: relationships
+title: 关联
 category: lucid
 ---
 = Relationships

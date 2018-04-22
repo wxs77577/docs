@@ -1,7 +1,7 @@
 ---
 permalink: views
-title: Views
-category: http-lifecycle
+title: 视图
+category: HTTP生命周期
 ---
 = Views
 

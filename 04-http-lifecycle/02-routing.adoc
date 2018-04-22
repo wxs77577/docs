@@ -1,7 +1,7 @@
 ---
 permalink: routing
-title: Routing
-category: http-lifecycle
+title: 路由
+category: HTTP生命周期
 ---
 = Routing
 

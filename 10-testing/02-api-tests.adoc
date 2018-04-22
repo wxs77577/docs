@@ -1,7 +1,7 @@
 ---
 permalink: api-tests
-title: REST API tests
-category: testing
+title: REST API测试
+category: 测试
 ---
 = REST API tests
 

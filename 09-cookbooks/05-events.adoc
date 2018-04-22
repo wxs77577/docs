@@ -1,7 +1,7 @@
 ---
-title: Events
 permalink: events
-category: cookbooks
+title: 事件
+category: 手册
 ---
 = Events
 

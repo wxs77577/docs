@@ -1,7 +1,7 @@
 ---
 permalink: sessions
-title: Sessions
-category: http-lifecycle
+title: 会话(Sessions)
+category: HTTP生命周期
 ---
 = Sessions
 

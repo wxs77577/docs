@@ -1,7 +1,7 @@
 ---
-title: Seeds & Factories
 permalink: seeds-and-factories
-category: database
+title: 数据填充和工厂(Seeds & Factories)
+category: 数据库
 ---
 = Seeds & Factories
 
@@ -56,7 +56,6 @@ The factory blueprints are defined inside `database/factory.js` file.
 [source, js]
 ----
 const Factory = use('Factory')
-const Hash = use('Hash')
 
 Factory.blueprint('App/Models/User', async (faker) => {
   return {

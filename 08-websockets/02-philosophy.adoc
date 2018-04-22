@@ -1,6 +1,6 @@
 ---
-title: Philosophy
 permalink: websocket-philosophy
+title: 理念
 category: websockets
 ---
 = Philosophy

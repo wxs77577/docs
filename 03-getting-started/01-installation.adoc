@@ -1,9 +1,9 @@
 ---
 permalink: installation
-title: Installation
-category: getting-started
+title: 安装
+category: 起步
 ---
-= Installation
+= 安装
 
 toc::[]
 

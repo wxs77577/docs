@@ -1,7 +1,7 @@
 ---
-title: Logger
 permalink: logger
-category: cookbooks
+title: 日志
+category: 手册
 ---
 = Logger
 

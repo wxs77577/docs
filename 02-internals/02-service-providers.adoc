@@ -1,9 +1,9 @@
 ---
 permalink: service-providers
-title: Service providers
-category: internals
+title: 服务提供者
+category: 核心
 ---
-= Service providers
+= 服务提供者
 
 toc::[]
 
@@ -150,7 +150,7 @@ Finally, we need to register this provider like any other provider inside the `s
 [source, js]
 ----
 const providers = [
-  path.join(__dirname, '..', 'providers', 'Queue/Provider')
+  path.join(__dirname, '..', 'providers', 'Queue/provider')
 ]
 ----
 

@@ -1,7 +1,7 @@
 ---
-title: Redis
 permalink: redis
-category: database
+title: Redis
+category: 数据库
 ---
 = Redis
 

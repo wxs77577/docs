@@ -1,6 +1,6 @@
 ---
-title: File uploads
 permalink: file-uploads
+title: 文件上传
 category: http-lifecycle
 ---
 = File uploads

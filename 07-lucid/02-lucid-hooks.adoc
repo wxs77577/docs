@@ -1,6 +1,6 @@
 ---
-title: Hooks
 permalink: database-hooks
+title: 钩子(Hooks)
 category: lucid
 ---
 = Hooks

@@ -1,7 +1,7 @@
 ---
 permalink: testing-fakes
-title: Testing fakes and Helpers
-category: testing
+title: 测试模拟器和助手
+category: 测试
 ---
 = Testing fakes and Helpers
 
