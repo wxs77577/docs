@@ -7,41 +7,41 @@ category: 介绍
 
 toc::[]
 
-AdonisJs is a Node.js MVC framework that runs on all major operating systems. It offers a stable eco-system to write a server-side web application so that you can focus on business needs over finalizing which package to choose or not.
+AdonisJs是一个可以运行在所有主流操作系统上的Node.js MVC框架。 它提供了一个稳定的生态系统来编写一个服务器端web应用程序，这样您就可以专注于业务需求，而不是最终确定纠结要选择哪个包。
 
-AdonisJs favours developer joy with consistent and expressive API to build a full-stack web application or a micro API server.
+AdonisJs支持开发人员使用一致且富有表现力的API来构建一个完整的web应用程序或微API服务器。
 
 == 起步
-They are no hard prerequisites to use AdonisJs but having a conventional understanding of JavaScript, Async programming and Node.js is great.
+没有硬性条件要使用Adonisjs的，但是它对JavaScript, 异步编程和Node.js的基本理解是有帮助的。
 
-Also, make sure to go through the link:installation[getting started] guide especially if this is your first time using AdonisJs.
+另外，如果你是第一次使用AdonisJs，请确保要阅读link:installation[入门指南]
 
 == 其他途径
-Here are some other great places to find information about AdonisJs.
+这里还有一些其他途径去找到关于AdonisJs的信息。
 
-1. The link:https://forum.adonisjs.com[discourse forum, window="_blank"], where we talk about everything about AdonisJs from fixing bugs to discussing new features.
-2. A list of link:/screencasts[screencasts] created by community members
+1. link:https://forum.adonisjs.com[discourse forum, window="_blank"], 我们在这里讨论有关AdonisJs从修复错误到讨论新功能的所有内容。
+2. 一些社区成员提供的link:/screencasts[截屏]。
 2. Twitter
 3. Github
-4. If you love the project, then please consider supporting us on link:https://www.patreon.com/adonisframework[patreon, window="_blank"].
+4. 如果你喜欢这个项目，那么请在link:https://www.patreon.com/adonisframework[patreon, window="_blank"]上支持我们。
 
 == 提供者(Providers)
-AdonisJs is a modular framework that consists of multiple service providers. The service providers are the building blocks of AdonisJs applications.
+AdonisJs是一个由多个服务提供商组成的模块化框架。 服务提供商是AdonisJs应用程序的基石。
 
-In theory, they are like any other npm module with some code on top of it to play transparently with AdonisJs applications. For example, link:https://github.com/adonisjs/adonis-bodyparser[BodyParser] to parse HTTP request body or link:https://github.com/adonisjs/adonis-lucid[Lucid] which is a SQL ORM.
+从理论上讲，就像其它任何npm模块一样，可以用一些代码透明的构建AdonisJs应用程序。 例如, link:https://github.com/adonisjs/adonis-bodyparser[BodyParser] 解析HTTP请求体或者link:https://github.com/adonisjs/adonis-lucid[Lucid] 就是一个 SQL ORM.
 
 == 常见问题
-Below is the list of frequently asked questions, if you think a common question is missing in the list. Please create an issue link:https://github.com/adonisjs/docs[here]
+以下是常见问题列表，如果您认为列表中缺少常见问题。 请在link:https://github.com/adonisjs/docs[这里]创建一个问题。
 
 [ol-spaced]
-1. *How is AdonisJs different from Express or Koa?*
+1. *AdonisJs与Express或Koa有什么不同？*
 +
-Express and Koa are routing libraries with a thin layer of middleware on top of it. There are great for several use cases but falls apart when your project starts growing.
+Express和Koa在路由库的基础上增加了一层中间件。 它对一些使用用例有好处，但是当项目增长（复杂）后会崩溃。
 +
-Also, it becomes harder to hire someone, since your project has its own standards and conventions. Whereas AdonisJs follows a set of standardized conventions, making it easier to hire people and make them work on existing AdonisJs apps.
+此外，因为你的项目有自己的标准和惯例，它变得更难雇人。 而AdonisJs遵循一套标准的约定，使其更容易让雇用的人在现有AdonisJs应用上上手工作。
 
-2. *Is AdonisJs for monolithic apps?*
+2. *AdonisJs适用于单片应用程序吗？*
 +
-No. AdonisJs as a framework is a combination of multiple packages that gracefully integrates with the rest of your app.
+不，AdonisJs作为一个框架是多个软件包的组合，与您的应用程序的其他部分完美地集成。
 +
-The framework provides a robust *Dependency injection* layer, which is leveraged by all official and 3rd party packages to offer functionality without manually wiring up each part of the application.
+该框架提供了一个强大的*依赖注入*层，所有官方和第三方包都利用该层来提供功能，而无需手动连接应用程序的每个部分。
