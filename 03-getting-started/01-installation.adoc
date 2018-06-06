@@ -7,7 +7,7 @@ category: 起步
 
 toc::[]
 
-本指南通过安装框架和所需的依赖关系让您开始使用AdonisJs。在本指南结束时，您将拥有一个带*Hello world*页面的AdonisJs Web服务器。
+本指南通过安装框架和所需的依赖关系让您开始使用AdonisJs。在本指南结束时，您将拥有一个带 *Hello world* 页面的AdonisJs Web服务器。
 
 如果您在安装AdonisJs时遇到任何问题，请在link:https://github.com/adonisjs/adonis-framework/issues/new[github, window="_blank"]上提问。
 
@@ -21,7 +21,7 @@ toc::[]
 TIP: 您还可以使用 link:https://github.com/creationix/nvm[nvm, window="_blank"] 来管理和运行多个版本的Node.js
 
 == 命令行工具
-一旦满足运行AdonisJs应用程序的要求，下一步就是安装* cli *工具，这将有助于我们创建新的AdonisJs应用程序。
+一旦满足运行AdonisJs应用程序的要求，下一步就是安装 *cli* 工具，这将有助于我们创建新的AdonisJs应用程序。
 
 cli工具使用npm全局安装。
 
@@ -30,7 +30,7 @@ cli工具使用npm全局安装。
 npm i -g @adonisjs/cli
 ----
 
-安装完成后，请确保您可以从命令行运行`adonis`。
+安装完成后，请确保您可以从命令行运行 `adonis` 。
 
 [source, bash]
 ----
@@ -39,7 +39,7 @@ adonis --help
 继续，如果一切按预期工作。否则，请在link:https://github.com/adonisjs/adonis-framework/issues/new[github, window="_blank"]上创建一个问题。
 
 ==创建新的应用程序
-我们首先使用cli工具`new`命令创建一个新的应用程序。它接受项目 名称/文件夹 作为必需的参数。
+我们首先使用cli工具 `new` 命令创建一个新的应用程序。它接受项目 名称/文件夹 作为必需的参数。
 
 [source, bash]
 ----
@@ -49,7 +49,7 @@ adonis new yardstick
 image:http://res.cloudinary.com/adonisjs/image/upload/q_100/v1517474934/carbon_3_rkehpj.png[]
 
 == 运行应用程序
-安装过程完成后，您可以`cd`进入目录并运行以下命令启动HTTP服务器。
+安装过程完成后，您可以 `cd` 进入目录并运行以下命令启动HTTP服务器。
 
 [source, bash]
 ----
@@ -64,18 +64,18 @@ adonis serve --dev
 [date] - info: serving app on 127.0.0.1:3333
 ----
 
-`serve`命令启动项目根目录中`.env`文件中定义的端口上的HTTP服务器。如果您在浏览器中打开 link:http://127.0.0.1:3333[127.0.0.1:3333] ，您将看到以下*欢迎页面*。
+`serve` 命令启动项目根目录中 `.env` 文件中定义的端口上的HTTP服务器。如果您在浏览器中打开 link:http://127.0.0.1:3333[127.0.0.1:3333] ，您将看到以下 *欢迎页面* 。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/q_100/v1502292352/welcome-page.png[]
 
-== 自定义`new`命令
+== 自定义 `new` 命令
 
 [ol-spaced]
-1. `adonis new <路径>`命令会自动创建项目目录并为您执行`npm install`。你可以通过`--yarn`来使用yarn而不是npm。
-2. 默认的 link:https://github.com/adonisjs/adonis-fullstack-app[fullstack app, window="_blank"] 模板是从Github克隆的，也可以传递`--slim`或`--api-only`标志。
-3. 要使用社区创建的模板，您可以传递 `--blueprint=<github-org/repo>`.
+1. `adonis new <路径>` 命令会自动创建项目目录并为您执行 `npm install` 。你可以通过 `--yarn` 来使用yarn而不是npm。
+2. 默认的 link:https://github.com/adonisjs/adonis-fullstack-app[fullstack app, window="_blank"] 模板是从Github克隆的，也可以传递 `--slim` 或 `--api-only` 标志。
+3. 要使用社区创建的模板，您可以传递 `--blueprint=<github-org/repo>` .
 
-TIP: 如果有疑问，请使用`adonis new --help`命令查看可用选项列表。
+TIP: 如果有疑问，请使用 `adonis new --help` 命令查看可用选项列表。
 
 == 下一步
 本指南很小，仅关注过程的安装部分。展望未来，我们将了解HTTP生命周期和 link:folder-structure[文件夹结构].

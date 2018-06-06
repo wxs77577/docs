@@ -19,7 +19,7 @@ AdonisJs路由热衷 *REST约定* ，但仍然有足够的空间来创建和注�
 Route.get('/', () => 'Hello world')
 ----
 
-使用`adonis serve --dev`启动服务器后，如果您访问 link:http://localhost:3333[localhost:3333]，您会在浏览器中看到 *Hello world* 。
+使用 `adonis serve --dev` 启动服务器后，如果您访问 link:http://localhost:3333[localhost:3333]，您会在浏览器中看到 *Hello world* 。
 
 == 路由方法/动词
 Restful路由使用不同的HTTP方法来指示请求的类型。例如： `POST` 方法用于创建记录， `GET` 用于获取记录。
@@ -544,7 +544,7 @@ Route
   .bind('App/Models/User', 'id', 'user')
 ----
 
-在这里，我们将`bind`方法添加到 link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Route/index.js[Route 类] 原型。 此方法在内部向路由添加中间件，该中间件使用模型从数据库中提取记录。
+在这里，我们将 `bind` 方法添加到 link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Route/index.js[Route 类] 原型。 此方法在内部向路由添加中间件，该中间件使用模型从数据库中提取记录。
 
 您也可以将宏添加到以下类中。
 

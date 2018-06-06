@@ -95,7 +95,7 @@ const body = request.only(['username', 'email', 'age'])
 ----
 
 ==== except
-与`only`相反，并返回除了定义的键之外的所有内容。
+与 `only` 相反，并返回除了定义的键之外的所有内容。
 
 [source, js]
 ----
@@ -269,7 +269,7 @@ const method = request.method()
 ----
 
 ==== intended
-由于Adonisjs允许 xref:_method_spoofing[方法欺骗]，因此可以使用`intended`方法获取实际的方法。
+由于Adonisjs允许 xref:_method_spoofing[方法欺骗]，因此可以使用 `intended` 方法获取实际的方法。
 
 [source, js]
 ----

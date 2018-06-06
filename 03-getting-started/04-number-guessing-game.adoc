@@ -183,7 +183,7 @@ module.exports = GameController
 
 正如您所看到的，Edge使得在模板文件中编写逻辑非常简单。 我们很容易输出我们想要的语句。
 
-TIP: 如果您有任何问题或疑虑，请加入我们的link:https://forum.adonisjs.com/c/help/view[discourse, window="_blank"] - 成为我们小而乐于助人的社区的一部分。
+TIP: 如果您有任何问题或疑虑，请加入我们的 link:https://forum.adonisjs.com/c/help/view[discourse, window="_blank"] - 成为我们小而乐于助人的社区的一部分。
 
 == 下一步
 本教程是使用AdonisJs中不同部分并构建简单应用程序的最简单尝试。 考虑了解以下主题来了解更多。
