@@ -3,17 +3,17 @@ permalink: lucid
 title: Lucid模型
 category: lucid
 ---
-= Lucid Models
+= Lucid 模型
 
 toc::[]
 
-Lucid is an implementation of link:https://en.wikipedia.org/wiki/Active_record_pattern[Active Record, window="_blank"] pattern in Javascript. If you are coming from the *Laravel* or the *Rails* world, then you may be quite familiar with it.
+Lucid是Javascript中 link:https://en.wikipedia.org/wiki/Active_record_pattern[Active Record, window="_blank"]模式的一个实现。 如果你来自 *Laravel* 或 *Rails* 世界，那么你可能对它很熟悉。
 
-== Introduction
-The reason behind using Models over writing plain database queries is the ease of use and the powerful API to drive the data flow. Lucid models under the hood takes care of
+== 介绍
+在编写普通数据库查询时使用模型的原因是易用性和强大的API来驱动数据流。引擎盖下的Lucid模型需要照顾
 
-1. Fetching, persisting model instance transparently.
-2. Expressive API to manage relationships.
+1. 吸引人的是, 透明实例模型的持久化
+2. 富有表现力的API来管理关系
 +
 [source, javascript]
 ----
@@ -29,17 +29,16 @@ class User extends Model {
 
 }
 ----
-3. Define life-cycle hooks to keep your code DRY.
-4. Getters/Setters to mutate data on the fly.
-5. Serialize data using *serializers*, *computed properties* etc.
-6. Manage date formats.
-7. and much more.
+3. 定义生命周期钩子以保持代码精简。
+4. Getters/Setters可以即时改变数据。
+5. 使用 *序列化器*,*计算属性* 等序列化数据。
+6. 管理日期格式。
+7. 还有更多。
 
-NOTE: Lucid models are not tied to your database schema and instead manages everything on their own. +
-*For example*: There is no need to define associations in SQL when using lucid relationships.
+NOTE: Lucid模型并不依赖于您的数据库模式，而是自己管理所有东西。 +
+*例如*: 使用Lucid关联时，不需要在SQL中定义关联。
 
-The lucid models are stored as ES6 classes inside `app/Models` directory, where each model represents a database table. For example
-
+Lucid模型作为ES6类存储在 `app/Models` 目录中,其中每个模型表示一个数据库表。例如
 [options="header"]
 |====
 | Model | Database table
@@ -47,10 +46,10 @@ The lucid models are stored as ES6 classes inside `app/Models` directory, where 
 | Post | posts
 |====
 
-== Basic Example
-Let's see how to create and make use of a Model to read/write to the database. You can make use of the `adonis` command to generate a model.
+== 基本示例
+让我们来看看如何创建和使用模型来读取/写入数据库。您可以使用 `adonis` 命令来生成一个模型。
 
-=== Creating model
+=== 创建模型
 [source, bash]
 ----
 adonis make:model User
@@ -77,8 +76,8 @@ class User extends Model {
 module.exports = User
 ----
 
-=== Fetching users
-Now inside the routes file, we use the *User* model to fetch all users.
+=== 提取用户
+现在在路由文件中，我们使用 *User* 模型来获取所有用户。
 
 .start/routes.js
 [source, js]
@@ -91,7 +90,7 @@ Route.get('users', async () => {
 })
 ----
 
-=== Creating user
+=== 创建用户
 
 [source, js]
 ----
@@ -105,11 +104,11 @@ user.password = 'some-password'
 await user.save()
 ----
 
-== Convention over configuration
-Lucid models do a lot based on certain conventions, but of course, you are free to override the defaults with your settings.
+== 惯例优于配置
+Lucid模型基于某些约定做了很多工作，但是当然，您可以随意使用您的设置覆盖默认值。
 
 ==== table
-The table name is always the *lowercase* and *plural* form of the model name. However, you can override it defining a getter.
+表名始终是模型名称的 *小写* 和 *复数形式*。但是，您可以覆盖它定义一个getter。
 
 [source, js]
 ----
@@ -121,7 +120,7 @@ class User extends Model {
 ----
 
 ==== connection
-By default, models make use of the default connection defined inside `config/database.js` file. However, you can set a different database connection for each model.
+默认情况下，模型使用 `config/database.js` 文件中定义的默认连接。但是，您可以为每个模型设置不同的数据库连接。
 
 [source, js]
 ----
@@ -133,7 +132,7 @@ class User extends Model {
 ----
 
 ==== primaryKey
-The primary key is set as `id` by default. However, you can mark a different field as the primary key. Also, make sure that the value of this field should always be unique.
+主键默认设置为 `id`。但是，您可以将不同的字段标记为主键。另外，请确保该字段的值应始终是唯一的。
 
 [source, js]
 ----
@@ -146,7 +145,8 @@ class User extends Model {
 
 
 ==== createdAtColumn
-The field name to be used for setting the created at time stamp. You can return `null` to disable it.
+用于设置时间戳创建的字段名称。你可以返回 `null` 来禁用它。
+
 
 [source, js]
 ----
@@ -158,7 +158,7 @@ class User extends Model {
 ----
 
 ==== updatedAtColumn
-The field name to be used for setting the updated at time stamp. You can return `null` to disable it.
+用于设置时间戳创建的字段名称。你可以返回 `null` 来禁用它。
 
 [source, js]
 ----
@@ -170,9 +170,9 @@ class User extends Model {
 ----
 
 ==== incrementing
-Lucid assumes that each table associated with a Model has an auto incrementing primary key. You can disable this flag by return `false` from the incrementing getter.
+Lucid假定与模型相关的每个表都有一个自动递增主键。你可以通过从递增的getter中返回 `false` 来禁用这个标志。
 
-NOTE: When you set `incrementing = false`, you have to make sure to set the `primaryKeyValue` manually.
+NOTE: 当您设置 `incrementing = false` 时，您必须确保手动设置 `primaryKeyValue`。
 
 [source, js]
 ----
@@ -184,7 +184,7 @@ class User extends Model {
 ----
 
 ==== primaryKeyValue
-The value of the primary key. You only update this key when `incrementing` is set to false.
+主键的值。当 `incrementing` 设置为false时，您只需更新此键。
 
 [source, js]
 ----
@@ -195,13 +195,13 @@ console.log(user.primaryKeyValue)
 user.primaryKeyValue = uuid.v4()
 ----
 
-== Hiding Fields
-Quite often you will find yourself omitting fields from the database results. For example: Hiding the user’s password from the JSON output. Doing this manually can be tedious in many ways.
+== 隐藏字段
+通常你会发现自己忽略了数据库结果中的字段。例如：从JSON输出中隐藏用户的密码。手动操作在很多方面都很多余的。
 
-1. You will have manually loop over the rows and delete the key/value pair.
-2. When you fetch relationships, you will have to loop through all the parent records and then their child records to delete the key/value pair.
+1. 您将手动循环遍历行并删除键/值对。
+2. 当您获取关系时，您必须遍历所有父记录，然后循环其子记录以删除键/值对。
 
-AdonisJs makes it simpler by defining the visible or hidden (one at a time) on your model.
+AdonisJs通过定义模型上的可见或隐藏（一次一个）来使其更简单。
 
 ==== hidden
 [source, js]
@@ -224,7 +224,7 @@ class Post extends Model {
 ----
 
 ==== setVisible/setHidden
-Also you can define `hidden/visible` fields for a single query using following methods.
+您还可以使用以下方法为单个查询定义 `hidden/visible` 字段。
 
 [source, js]
 ----
@@ -235,15 +235,15 @@ User.query().setHidden(['password']).fetch()
 ----
 
 
-== Dates
-Dates are the hardest part of building data driver applications. We want to store them differently and show them differently, which usually requires much manual work.
+== 日期
+日期是构建数据驱动程序应用程序中最难的部分。我们希望以不同的方式存储它们，并以不同的方式显示它们，这通常需要很多手动工作。
 
-Lucid handles date gracefully so that you have minimal work to do.
+Lucid处理日期更好，以至于你只需花最少的工作做它
 
-=== Defining date fields
-The first step is to tell Lucid, which fields are supposed to be treated as dates. By default, the timestamps `created_at` and `updated_at` are marked as dates.
+=== 定义日期字段
+第一步是告诉Lucid，哪些字段应该被视为日期。默认情况下，`created_at` 和 `updated_at` 的时间戳被标记为日期。
 
-However, you can define your own too.
+但是，你也可以定义你自己的。
 
 [source, js]
 ----
@@ -254,12 +254,13 @@ class User extends Model {
 }
 ----
 
-So here we pull the fields which are marked as dates by default and push a new date field to it and finally return it.
+因此，我们在这里拉出默认标记为日期的字段，并将新日期字段推送给它并最终返回它。
 
-=== Formatting date fields
-Lucid formats all dates as `YYYY-MM-DD HH:mm:ss` by default, which is a valid format for all database engines. Also, it gives you a way to conditionally format certain or all date fields.
+=== 格式化日期字段
+Lucid格式的所有日期默认为 `YYYY-MM-DD HH：mm：ss`，这是所有数据库引擎的有效格式。此外，它还为您提供了一种有条件地格式化某些或所有日期字段的方法。
 
-NOTE: The `formatDates` method is called before saving the model instance to the database. So make sure the return value is always a valid format for the database engine you are using.
+
+NOTE: 在将模型实例保存到数据库之前调用 `formatDates` 方法。因此，确保返回值始终是您正在使用的数据库引擎的有效格式。
 
 [source, js]
 ----
@@ -273,10 +274,10 @@ class User extends Model {
 }
 ----
 
-The `value` is the actual date given when setting the field.
+`value` 是设置字段时的实际日期。
 
-=== Casting dates
-Now we have saved the dates to the database; we may want to format them differently when displaying it to the user. It can be done quite easily using the `castDates` method.
+=== 投射日期
+现在我们已将日期保存到数据库中;我们可能想要以不同的格式显示给用户。使用 `castDates` 方法可以很容易地完成。
 
 [source, js]
 ----
@@ -290,7 +291,7 @@ class User extends Model {
 }
 ----
 
-The `value` is an instance of link:https://momentjs.com/[moment.js, window="_blank"], which means you can call any moment methods to format the date. Also, the `castDates` method is called when the model instance is *deserialized*, which happens after calling `toJSON`.
+`value` 是一个 link:https://momentjs.com/[moment.js, window="_blank"] 实例。这意味着你可以调用任何时刻的方法来格式化日期。另外，在模型实例 *deserialized* 时调用 `castDates` 方法，这发生在调用 `toJSON` 之后。
 
 [source, js]
 ----
@@ -300,8 +301,8 @@ const users = await User.all()
 const usersJSON = users.toJSON()
 ----
 
-== Query builder
-Lucid models make use of link:query-builder[database query builder] to run database queries. You can obtain an instance of query builder by calling `query` method on a model.
+== 查询构建器
+Lucid模型利用 link:query-builder[数据库查询构建器] 来运行数据库查询。您可以通过调用模型上的 `query` 方法来获取查询构建器的实例。
 
 [source, js]
 ----
@@ -313,16 +314,16 @@ const adults = await User
   .fetch()
 ----
 
-1. All of the query builder methods are fully supported.
-2. With Lucid models, you are supposed to call `fetch` method to execute the query. It is required to get results back within an instance of `serializer` ( learn more about link:serializers[serializers] ).
+1. 完全支持所有查询构建器方法。
+2. 有了Lucid模型，你应该调用`fetch`方法来执行查询。需要在 `serializer` 的实例中返回结果(了解有关 link:serializers[序列化器] 的更多信息).
 
-== Static methods
-Lucid models come with a bunch of static methods to do common operations without using the query builder interface.
+== 静态方法
+Lucid模型带有一些静态方法来执行常用操作，而不使用查询构建器接口。
 
-Also, there is no need to call `fetch` when using one of the following static methods.
+另外，在使用下列静态方法时，不需要调用 `fetch`。
 
 ==== find
-Find a record using for the primary key. Always returns one record.
+使用主键查找记录。始终返回一条记录。
 
 [source, js]
 ----
@@ -331,7 +332,7 @@ await User.find(1)
 ----
 
 ==== findOrFail
-Same as the `find` method but instead throws `ModelNotFoundException` when unable to find a record.
+与 `find` 方法相同，但在无法找到记录时抛出 `ModelNotFoundException`。
 
 [source, js]
 ----
@@ -340,7 +341,7 @@ await User.findOrFail(1)
 ----
 
 ==== findBy / findByOrFail
-Find a record using a key/value pair. Returns the first matching record.
+使用键/值对查找记录。返回第一个匹配的记录。
 
 [source, js]
 ----
@@ -352,7 +353,7 @@ await User.findByOrFail('email', 'foo@bar.com')
 ----
 
 ==== first / firstOrFail
-Find the first row from the database.
+找到数据库的第一行。
 
 [source, js]
 ----
@@ -363,8 +364,8 @@ await User.first()
 await User.firstOrFail()
 ----
 
-==== findOrCreate (whereAttributes, values)
-Find a record, if not found a new record will be created and returned back on the fly.
+==== findOrCreate (属性, 值)
+查找记录，如果未找到，则会创建一条新记录并立即返回。
 
 [source, js]
 ----
@@ -376,7 +377,7 @@ const user = await User.findOrCreate(
 ----
 
 ==== pick(rows = 1)
-Pick `x` number of rows from the database table. By default it only selects `1` row.
+从数据库表中选择 `x` 行数。默认情况下，它只选择 `1` 行。
 
 [source, js]
 ----
@@ -385,7 +386,7 @@ await User.pick(3)
 ----
 
 ==== pickInverse(rows = 1)
-Pick `x` number of rows from the database table from last. By default it only selects `1` row.
+从最后一个数据库表中选择 `x` 行数。默认情况下，它只选择 `1` 行。
 
 [source, js]
 ----
@@ -394,7 +395,7 @@ await User.pickInverse(3)
 ----
 
 ==== ids
-Returns an array of primary keys. If the primary key is defined as `uid`, then it is an array of `uid's`.
+返回一个主键数组。如果主键被定义为 `uid`，那么它是 `uid's` 的数组。
 
 [source, js]
 ----
@@ -403,7 +404,7 @@ const userIds = await User.ids()
 ----
 
 ==== pair(lhs, rhs)
-Returns an object of key/value pair. The `lhs` field is the object key, and `rhs` is the value.
+返回键/值对的对象。`lhs` 字段是对象键，`rhs` 是值。
 
 [source, js]
 ----
@@ -414,7 +415,7 @@ const users = await User.pair('id', 'country')
 ----
 
 ==== all
-Select all rows
+选择所有行
 
 [source, js]
 ----
@@ -423,7 +424,7 @@ const users = await User.all()
 ----
 
 ==== truncate
-Delete all rows (truncate table)
+删除所有行（截断表）
 
 [source, js]
 ----
@@ -431,13 +432,13 @@ const User = use('App/Models/User')
 const users = await User.truncate()
 ----
 
-== Aggregate helpers
-link:query-builder#_aggregate_helpers[Query Builder aggregate helpers] provide shortcut access to common aggregate queries. Static model methods can be used when you wish to aggregate the entire table.
+== 聚合助手
+link:query-builder#_aggregate_helpers[查询构建器聚合助手] 提供对常见聚合查询的快捷访问。当您希望聚合整个表格时，可以使用静态模型方法。
 
-NOTE: These methods end the query builder chaining and returns a value. There is no need to call `link:#_query_builder[fetch()]`.
+NOTE: 这些方法结束查询生成器链接并返回一个值。没有必要调用 `link:#_query_builder[fetch()]`.
 
-==== getCount(columnName = '*')
-Return a count of records in a given result set.
+==== getCount(列表名 = '*')
+返回给定结果集中的记录数。
 
 [source, js]
 ----
@@ -447,7 +448,7 @@ const User = use('App/Models/User')
 await User.getCount()
 ----
 
-Also you can add query constraints before calling `getCount`.
+你也可以在调用 `getCount` 之前添加查询条件。
 [source, js]
 ----
 await User
@@ -456,10 +457,10 @@ await User
   .getCount()
 ----
 
-Just like `getCount` you can call all of the aggregate methods available on the link:query-builder#_aggregate_helpers[query builder]
+就像 `getCount` 一样，您可以调用 link:query-builder#_aggregate_helpers[查询构建器] 上可用的所有聚合方法
 
-== Query scopes
-Query scopes are convenient methods to extract query constraints to useable and powerful methods. For example, we want to fetch all those users, who have a profile
+== 查询范围
+查询范围是将查询条件提取为可用且功能强大的方法的便捷方法。例如，我们想要获取所有拥有个人资料的用户
 
 [source, js]
 ----
@@ -476,22 +477,22 @@ class User extends Model {
 }
 ----
 
-So, now you can use it as
+所以，现在你可以使用它
 
 [source, js]
 ----
 const users = await User.query().hasProfile().fetch()
 ----
 
-The idea of query scopes is to make your code more readable as if you are reading plain text.
+查询范围的想法是让您的代码更具可读性，就好像您正在阅读纯文本一样。
 
-1. The scopes are always defined with a keyword called `scope`, followed by the method name.
-2. When using the scope, you can call the method by dropping the `scope` keyword and calling the method in *camelCase* form.
-3. You can call all standard query builder methods inside a query scope.
+1. 范围总是用一个名为 `scope` 的关键字来定义，后面跟着方法名称。
+2. 使用范围时，可以通过删除 `scope` 关键字并以 *camelCase* 形式来调用该方法。
+3. 您可以在查询范围内调用所有标准查询构建器方法。
 
 
-== Pagination
-Lucid also supports the `paginate` method from the query builder.
+== 分页
+Lucid也支持来自查询构建器的 `paginate` 方法。
 
 [source, js]
 ----
@@ -503,7 +504,7 @@ const users = await User.query().paginate(page)
 return view.render('users', { users: users.toJSON() })
 ----
 
-The return value of `paginate` is not an array of users. Instead, it is an object with metadata and `data` property that has a list of users.
+`paginate` 的返回值不是用户数组。相反，它是一个包含元数据和 `data` 属性的对象，它具有用户列表。
 
 [source, js]
 ----
@@ -516,8 +517,8 @@ The return value of `paginate` is not an array of users. Instead, it is an objec
 }
 ----
 
-== Inserts & Updates
-With models instead of inserting raw values to the database, you persist the model instance which in turn makes the insert query for you. For example
+== 插入 & 更新
+使用模型而不是将原始值插入到数据库中，可以持久存储模型实例，然后为您插入查询。例如
 
 [source, js]
 ----
@@ -530,7 +531,7 @@ user.email = 'foo@bar.com'
 await user.save()
 ----
 
-The `save` method persists the instance to the database. Also, it smartly figures out whether to create a new row or update the existing row. For example:
+`save` 方法将实例保存到数据库中。此外，它巧妙地计算出是创建一个新行还是更新现有行。例如：
 
 [source, js]
 ----
@@ -549,11 +550,11 @@ user.age = 22
 await user.save()
 ----
 
-The `update` query only takes place if something has been changed. Calling `save` multiple times, without updating the model attributes does not perform any queries.
+只有在更新了某些内容时，才会执行 `update` 查询。而多次调用 `save`，不更新模型属性则不会执行任何查询。
 
-Rather than setting attributes manually, the `fill` or `merge` methods may be used.
+可以使用 `fill` 或 `merge` 方法，而不是手动设置属性。
 
-The `fill` method will override all existing key/pair values of the model instance.
+`fill` 方法将覆盖模型实例的所有现有键/值对。
 
 [source, js]
 ----
@@ -570,7 +571,7 @@ await user.save()
 // returns { age: 23, username: null }
 ----
 
-The `merge` method only modifies the specified attributes
+`merge` 方法只修改指定的属性
 
 [source, js]
 ----
@@ -587,7 +588,7 @@ await user.save()
 ----
 
 ==== create
-Alternatively, you can also feed a bunch of data directly to the model instance, instead of setting attributes manually.
+或者，您也可以将一堆数据直接提供给模型实例，而不是手动设置属性。
 
 [source, js]
 ----
@@ -599,9 +600,9 @@ const user = await User.create(userData)
 ----
 
 ==== createMany
-Just like `create` you can persist multiple instances of a model using the createMany method.
+就像 `create` 一样，您可以使用createMany方法持久化模型的多个实例。
 
-NOTE: The `createMany` method makes *n* number of queries instead of doing a bulk insert, where *n* is the number of rows.
+NOTE: `createMany` 方法生成 *n* 个查询，而不是执行批量插入，其中 *n* 是行数。
 
 [source, js]
 ----
@@ -611,10 +612,10 @@ const usersData = request.collect(['username' 'email', 'age'])
 const users = await User.createMany(usersData)
 ----
 
-=== Bulk updates
-The bulk updates can be done with the help of query builder. Lucid makes sure to format dates accordingly when doing bulk updates.
+=== 批量更新
+批量更新可以在查询构建器的帮助下完成。 Lucid确保在进行批量更新时相应地格式化日期。
 
-*Bulk updates never execute any model hooks*.
+*批量更新从不执行任何模型挂钩。*
 
 [source, js]
 ----
@@ -626,8 +627,8 @@ await User
   .update({ role: 'admin' })
 ----
 
-== Deletes
-A single model instance can be deleted by calling the delete method.
+== 删除
+通过调用delete方法可以删除单个模型实例。
 
 [source, js]
 ----
@@ -639,7 +640,7 @@ const user = await User.find(id)
 await user.delete()
 ----
 
-After calling `delete` method, the model instance freezes for any updates, but you can still read data from it.
+调用 `delete` 方法后，模型实例会停止任何更新，但您仍然可以从中读取数据。
 
 [source, js]
 ----
@@ -650,10 +651,10 @@ console.log(user.id) // works fine
 user.id = 1 // throws exception
 ----
 
-=== Bulk deletes
-Bulk deletes can be done with the help of query builder.
+=== 批量删除
+批量删除可以在查询构建器的帮助下完成。
 
-*Bulk deletes never execute any model hooks.*
+*批量删除从不执行任何模型挂钩。*
 
 [source, js]
 ----
@@ -665,8 +666,8 @@ await User
   .delete()
 ----
 
-== Transactions
-Majority of Lucid methods has support for transactions. The first step is always to obtain the `trx` object using the Database provider.
+== 交易
+Lucid方法的大部分都支持交易。第一步是使用数据库提供者来获取 `trx` 对象。
 
 [source, js]
 ----
@@ -681,7 +682,7 @@ await user.save(trx)
 trx.commit()
 ----
 
-Just like with `save`, you can pass the `trx` object to the `create` method as well.
+就像 `save` 一样，您也可以将 `trx` 对象传递给 `create` 方法。
 
 [source, js]
 ----
@@ -700,9 +701,8 @@ await User.createMany([
 ], trx)
 ----
 
-== Boot cycle
-Each model has a boot cycle where it gets booted, and that happens only once. So if you want to perform something that should occur only once, consider writing it inside the `boot` method.
-
+== 引导周期
+每个模型都有一个引导周期，在引导周期中引导，并且只发生一次。所以如果你想执行一次应该只发生一次的事情，可以考虑在 `boot` 方法中写入它。
 [source, js]
 ----
 const Model = use('Model')
