@@ -7,11 +7,11 @@ category: HTTP生命周期
 
 toc::[]
 
-This guide gives an outline on how to make use of the HTTP link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Request/index.js[Request, window="_blank"] object to read data for a request.
+本指南概述了如何使用HTTP link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Request/index.js[Request, window="_blank"] 对象读取请求的数据。
 
-TIP: The Node.js raw `req` object can be accessed as `request.request`.
+TIP: Node.js原始 `req` 对象可以作为 `request.request` 访问。
 
-AdonisJs passes the current HTTP request object as part of the link:http-context#_http_context[context] which is sent to all route handlers and middleware.
+AdonisJs传递当前HTTP请求对象作为 link:http-context#_http_context[上下文] 的一部分，它发送给所有路由处理程序和中间件。
 
 [source, js]
 ----
@@ -19,22 +19,21 @@ Route.get('/', ({ request }) => {
 })
 ----
 
-We used link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment[ES6 destructuring, window="_blank"] to get the `request` object from context.
+我们使用 link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment[ES6解构, window="_blank"] 从上下文获取 `request` 对象。
 
-== Request body
-The request object offers a bunch of helpful methods to read the request body. First, make sure that you have installed the body-parser middleware.
+== 请求体
+请求对象提供了一堆有用的方法来读取请求主体。首先，确保你已经安装了body-parser中间件。
+如果没有，请按照下面的步骤操作。
 
-If not, follow the upcoming steps.
-
-=== Setting up bodyparser
-NOTE: Fullstack and API only boilerplates comes with pre-configured body-parser.
+=== 设置bodyparser
+NOTE: 仅Fullstack和API的模板附带预配置的body-parser。
 
 [source, js]
 ----
 adonis install @adonisjs/bodyparser
 ----
 
-Then register the provider inside `start/app.js` file
+然后在 `start/app.js` 文件中注册提供者
 [source, js]
 ----
 const providers = [
@@ -42,7 +41,7 @@ const providers = [
 ]
 ----
 
-Also, register the global middleware inside `start/kernel.js` file.
+另外，在 `start/kernel.js` 文件中注册全局中间件。
 [source, js]
 ----
 const globalMiddleware = [
@@ -50,11 +49,11 @@ const globalMiddleware = [
 ]
 ----
 
-=== Methods
-Following is the list of methods you can call to read the request body.
+=== 方法
+以下是您可以调用以读取请求正文的方法列表。
 
 ==== all
-Returns the request body as an object. This method merges the `query params` with the `request body`.
+将请求主体作为对象返回。这个方法将 `查询参数` 和 `请求体` 合并在一起。
 
 [source, js]
 ----
@@ -62,7 +61,7 @@ const all = request.all()
 ----
 
 ==== get
-Get an object of query params
+获取查询参数的对象
 
 [source, js]
 ----
@@ -70,7 +69,7 @@ const query = request.get()
 ----
 
 ==== post
-Get an object of just request body
+获取请求正文的对象
 
 [source, js]
 ----
@@ -78,9 +77,9 @@ const body = request.post()
 ----
 
 ==== raw
-Get data posted as the raw body.
+获取提交的原始数据。
 
-NOTE: If raw data is JSON with `Content-type: application/json`, then the bodyparser parses it smartly and returns it as part of `post` method.
+NOTE: 如果原始数据是带有 `Content-type：application/json` 的JSON，那么bodyparser会巧妙地解析它，并将它作为 `post` 方法的一部分返回。
 
 [source, js]
 ----
@@ -88,7 +87,7 @@ const body = request.raw()
 ----
 
 ==== only
-Returns an object with `only` specified keys
+使用 `only` 返回包含指定键的一个对象
 
 [source, js]
 ----
@@ -96,7 +95,7 @@ const body = request.only(['username', 'email', 'age'])
 ----
 
 ==== except
-The opposite of `only` and returns everything except defined keys.
+与`only`相反，并返回除了定义的键之外的所有内容。
 
 [source, js]
 ----
@@ -104,19 +103,19 @@ const body = request.except(['csrf_token', 'submit'])
 ----
 
 ==== input
-Get value for a given key only, and it does not exist, return the `default` value.
+仅为给定键获取值，如果不存在，则返回 `默认` 值。
 
 [source, js]
 ----
 const drink = request.input('drink')
 
-// with default value
+// 使用默认值
 const drink = request.input('drink', 'coffee')
 ----
 
 
-== Request collection
-Quite often you want to handle HTML forms that submit an array of data over key/value pairs. *For example:* Form to create multiple users at once.
+== 请求集合
+通常你想处理通过键/值对提交数据数组的HTML表单。 *例如：* 一次创建多个用户的表单。
 
 [source, html]
 ----
@@ -130,7 +129,7 @@ Quite often you want to handle HTML forms that submit an array of data over key/
 </form>
 ----
 
-Let's say we want to get the username and age inside the controller.
+假设我们想要在控制器中获取用户名和年龄。
 
 [source, js]
 ----
@@ -140,37 +139,37 @@ const users = request.only(['username', 'age'])
 { username: ['virk', 'nikk'], age: [26, 25] }
 ----
 
-The above piece of data is something that you cannot save to the database directly since it is not in the right format.
+上面的数据是你无法直接保存到数据库的东西，因为它的格式不正确。
 
-Using `request.collect` we can get it formatted out of the box.
+使用 `request.collect` ，我们可以将其格式化为开箱即用的格式。
 
 [source, js]
 ----
 const users = request.collect(['username', 'age'])
 
-// output
+// 输出
 [{ username: 'virk', age: 26 }, { username: 'nikk', age: 25 }]
 
-// save to db
+// 保存到数据库
 await User.createMany(users)
 ----
 
-== Headers
-Also, you can read headers from the request using one of the following methods.
+== 请求头
+此外，您可以使用以下方法之一从请求中读取请求头。
 
 ==== header
-The header value for a given key.
+给定键的请求头。
 
 [source, js]
 ----
 const auth = request.header('authorization')
 
-// different word case
+// 不同的单词大小写
 const auth = request.header('Authorization')
 ----
 
 ==== headers
-Returns an object of headers.
+返回请求头的对象。
 
 [source, js]
 ----
@@ -178,28 +177,28 @@ const headers = request.headers()
 ----
 
 == Cookies
-Cookies are read using one of the following methods
+使用以下方法之一读取Cookies
 
 ==== cookie
-Returns the value for a key inside cookies. Optionally returns the default value.
+返回cookie中某个键的值。默认返回可选的默认值。
 
 [source, js]
 ----
 const cartTotal = request.cookie('cart_total')
 
-// with default value
+// 使用默认值
 const cartTotal = request.cookie('cart_total', 0)
 ----
 
 ==== cookies
-Returns an object of all the cookies
+返回所有cookies的对象
 
 [source, js]
 ----
 const cookies = request.cookies()
 ----
 
-You are supposed to use the following methods to read the cookies set on client side.
+您也可以使用以下方法来读取客户端上设置的Cookie。
 
 ==== plainCookie
 [source, js]
@@ -208,21 +207,20 @@ const jsCookie = request.plainCookie('cart_total')
 ----
 
 ==== plainCookies
-Get an object of raw cookies
+获取原始Cookie的对象
 [source, js]
 ----
 const plainCookies = request.plainCookies()
 ----
 
-== Content negotiation
-link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation[Content negotiation, window="_blank"] is a way for server and client to decide upon the best response type to be returned from the server.
+== 内容协商
+link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation[内容协商, window="_blank"] 是服务器和客户端决定要返回的最佳响应类型的一种方式从服务器。
 
-Since web servers do not only serve web pages, they have to deal with API response in *JSON*, or maybe in *XML*. Instead of creating separate URL's for each content type, the consumer can ask the server to return the response in a specific format.
+由于Web服务器不仅提供网页，他们还必须响应API的 *JSON* 或者 *XML* 请求。消费者可以要求服务器以特定格式返回响应，而不是为每种内容类型创建单独的URL。
 
-Now to construct the response in a specific format, the server needs to know it first. The same can be done using the `accepts` method.
-
+现在要以特定的格式构建响应，服务器需要首先知道它。使用 `accept` 方法可以做到这一点。
 ==== accepts
-Reads the `Accept` header to know response format.
+读取“Accept”请求头以了解响应格式。
 
 [source, js]
 ----
@@ -236,18 +234,18 @@ return view.render('users.list', { users })
 ----
 
 ==== language
-Language can also be negotiated based upon `Accept-Language` header.
+语言也可以基于 `Accept-Language` 头部进行协商。
 
 [source, js]
 ----
 const language = request.language(['en', 'fr'])
 ----
 
-== Request methods
-Following is the list of all request methods and their usage example
+== 请求对象的方法
+以下是所有请求对象的方法及其使用示例的列表
 
 ==== url
-Returns the current request url
+返回当前的请求url
 
 [source, js]
 ----
@@ -255,7 +253,7 @@ const url = request.url()
 ----
 
 ==== originalUrl
-The URL with query strings on it
+带有查询字符串的网址
 
 [source, js]
 ----
@@ -263,7 +261,7 @@ const url = request.originalUrl()
 ----
 
 ==== method
-Returns the request HTTP method.
+返回请求HTTP方法。
 
 [source, js]
 ----
@@ -271,7 +269,7 @@ const method = request.method()
 ----
 
 ==== intended
-Since Adonisjs allows xref:_method_spoofing[method spoofing], you can fetch the actual method using `intended` method.
+由于Adonisjs允许 xref:_method_spoofing[方法欺骗]，因此可以使用`intended`方法获取实际的方法。
 
 [source, js]
 ----
@@ -279,7 +277,7 @@ const method = request.intended()
 ----
 
 ==== ip
-Returns the most trusted ip address for the user.
+为返回用户最可信的IP地址。
 
 [source, js]
 ----
@@ -287,7 +285,7 @@ const ip = request.ip()
 ----
 
 ==== ips
-Returns an array of ips from most to the least trusted one. It removes the default ip address, which can be accessed via `ip` method.
+返回从大多数到最不受信任的ips数组。它删除默认可以通过 `ip` 方法访问的ip地址，。
 
 [source, js]
 ----
@@ -295,7 +293,7 @@ const ips = request.ips()
 ----
 
 ==== subdomains
-Returns a list of request subdomains, this method removes `www` from the list.
+返回请求子域列表，此方法从列表中移除 `www`。
 
 [source, js]
 ----
@@ -303,28 +301,28 @@ const subdomains = request.subdomains()
 ----
 
 ==== ajax
-Checks for `X-Requested-With` header to determine if the request is ajax or not.
+检查 `X-Requested-With` 头以确定请求是否为ajax。
 
 [source, js]
 ----
 if (request.ajax()) {
-  // do something
+  // 做点什么
 }
 ----
 
 ==== pjax
-link:https://github.com/defunkt/jquery-pjax[Pjax, window="_blank"] is an evolved way to make use of Ajax to deliver better user experience on traditional apps. In rails world, it is known as Turbolinks.
+link:https://github.com/defunkt/jquery-pjax[Pjax, window="_blank"] 是利用Ajax在传统应用程序上提供更好用户体验的一种演进方式。在Rails世界，它被称为Turbolinks。
 
-This methods looks at `X-PJAX` header to identify if request is pjax or not.
+此方法查看 `X-PJAX` 头以确定请求是否为pjax。
 [source, js]
 ----
 if (request.pjax()) {
-  // do something
+  // 做点什么
 }
 ----
 
 ==== hostname
-Returns the request hostname
+返回请求主机名
 
 [source, js]
 ----
@@ -332,7 +330,7 @@ const hostname = request.hostname()
 ----
 
 ==== protocol
-Return request protocol.
+返回请求协议。
 
 [source, js]
 ----
@@ -340,41 +338,41 @@ const protocol = request.protocol()
 ----
 
 ==== match
-Matches a set of expressions against the current request URL to tell if it matches one.
+匹配当前请求URL的一组表达式以判断它是否匹配。
 
 [source, js]
 ----
-// current request url - posts/1
+// 当前请求地址 - posts/1
 
 request.match(['posts/:id']) // returns true
 ----
 
 ==== hasBody
-A boolean indicating if the request has post body.  It is mainly used by the bodyparser to know whether to parse the body or not.
+指示请求是否具有请求体的布尔值。它主要用于bodyparser知道是否解析请求体。
 
 [source, js]
 ----
 if (request.hasBody()) {
-  // do something
+  // 做点什么
 }
 ----
 
 ==== is
-The `is` method returns the best matching content type for the current request. The check is entirely based upon the `content-type` header.
+`is` 方法为当前请求返回最匹配的内容类型。该检查完全基于 `content-type` 标题。
 
 [source, js]
 ----
-// assuming content-type is `application/json`
+// 假设 content-type 是 `application/json`
 
 request.is(['json', 'html']) // returns - json
 
 request.is(['application/*']) // returns - application/json
 ----
 
-== Method spoofing
-HTML forms are only capable of making `GET` and `POST` requests, which means you cannot utilize the REST conventions of using other HTTP methods like *PUT*, *DELETE* and so on.
+== 方法欺骗
+HTML表单只能发起 `GET` 和 `POST` 请求​​，这意味着你不能使用其他HTTP方法（如 *PUT*， *DELETE* 等）的REST约定。
 
-AdonisJs makes it simpler bypassing the request method as part of the query string and then it executes the correct Route for you automatically.
+AdonisJs使得它更简单地绕过请求方法作为查询字符串的一部分，然后它会自动为您执行正确的路由。
 
 [source, js]
 ----
@@ -386,15 +384,17 @@ Route.put('users', 'UserController.update')
 <form method="POST" action="/users?_method=PUT">
 ----
 
-The above works in following cases.
+该功能在满足以下条件时可用。
 
-1. The original request method is `POST`.
-2. `allowMethodSpoofing` is enabled inside `config/app.js` file.
+1. 原始请求方法是 `POST` 。
+2. `config/app.js` 文件中启用 `allowMethodSpoofing`。
 
-== Extending Request
-Quite often you have the requirement of extending the `Request` prototype by attaching new methods. Same can be done by defining a macro on the Request class.
 
-NOTE: Since the code to extend the `Request` needs to be executed once, you can make use of providers or ignitor hooks. Make sure to read link:[how to extend] guide before continuing.
+== 扩展 Request
+
+通常你需要通过附加新方法来扩展 `Request` 原型。 通过在Request类上定义一个宏也可以做到这一点。
+
+NOTE: 由于扩展 `Request` 的代码需要执行一次，因此可以使用提供者或点火器挂钩。 请务必在继续之前阅读 link:[如何扩展]。
 
 [source, javascript]
 ----
