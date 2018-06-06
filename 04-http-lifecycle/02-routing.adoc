@@ -165,7 +165,7 @@ class PostController {
 module.exports = PostController
 ----
 
-== Route middleware
+== 路由中间件
 您可以通过调用“middleware”方法将选定的中间件应用于路由。
 
 [source, js]
