@@ -7,23 +7,23 @@ category: 起步
 
 toc::[]
 
-In this guide, we learn how AdonisJs handles the application configuration and environment variables. By the end of this guide, you will know how to keep sensitive information secure and avoid configuration debt.
+在本指南中，我们将学习AdonisJs如何处理应用程序配置和环境变量。在本指南结束时，您将知道如何保持敏感信息的安全并避免配置债务(configuration debt)。
 
-== Configuration debt
-Before getting started, let's understand the concept of configuration debt. Many Node.js applications face the issue of scattered configuration inside multiple files. For example:
+== 配置债务
+在开始之前，让我们了解配置债务的概念。许多Node.js应用程序面临多个文件内部分散配置的问题。例如：
 
 [ol-shrinked]
-1. Defining middleware config with the routes file.
-2. Defining email setup details with in the service that sends the email.
+1. 使用路由文件定义中间件配置。
+2. 在发送电子邮件的服务中定义电子邮件设置详细信息。
 
-For a new user working on the code base for the first time, it becomes a nightmare to find all the configuration, and they keep juggling within multiple files/directories.
+对于第一次使用代码库的新用户来说，找到所有配置变成了一场噩梦，并且他们一直在多个文件/目录间折腾。
 
-To avoid this behavior a dedicated directory `config` is used to store configuration at one place.
+为了避免这种行为，一个专用的目录 `config` 用于存放配置。
 
-== Getting started
-In AdonisJs, we store all the configuration inside a separate directory called `config`. All of the configuration files are loaded at boot time, and values can be accessed using the *Config provider*.
+== 入门
+在AdonisJs中，我们将所有配置存储在名为 `config` 的单独目录中。所有配置文件都在引导时加载，可以使用 * Config 提供者* 访问这些值。
 
-Let's say we want to read the `appSecret` from `config/app.js` file.
+假设我们想从 `config/app.js` 文件中读取 `appSecret` 。
 
 [source, js]
 ----
@@ -31,7 +31,7 @@ const Config = use('Config')
 const appSecret = Config.get('app.appSecret')
 ----
 
-The values are fetched by defining the `fileName.key`. Nested values can be fetched using dot-notation.
+这些值通过定义 `文件名.键` 来获取。嵌套值可以使用点符号来获取。
 
 .config/database.js
 [source, js]
@@ -43,29 +43,29 @@ The values are fetched by defining the `fileName.key`. Nested values can be fetc
 }
 ----
 
-Now, access it as
+现在，来访问它
 
 [source, js]
 ----
 Config.get('database.mysql.host')
 
-// or with default value
+// 或使用默认值
 Config.get('database.mysql.host', '127.0.0.1')
 ----
 
-Also you can update the in-memory config value for a key as shown below.
+您还可以更新密钥的内存配置值，如下所示。
 
 [source, js]
 ----
 Config.set('database.mysql.host', 'db.example.com')
 ----
 
-== Environment variables
-Quite often you want to have a different configuration based upon the environment your code is running in. For example: Using *sandbox secrets* for a 3rd party service in development.
+== 环境变量
+通常，您希望根据您的代码运行的环境来配置不同的配置。例如：在开发中使用 *沙盒秘钥* 调用第三方服务。
 
-Also from the security point of view, you should never share your production credentials with all of the developers working on a codebase.
+同样从安全角度来看，您绝不应该将您的生产凭证与所有在代码库上工作的开发人员共享。
 
-Instead, these credentials are stored as environment variables on your production server and defined inside `.env` file when developing the app locally.
+相反，这些凭证作为环境变量存储在生产服务器上，并在本地开发应用程序时在 `.env` 文件中定义。
 
 .env
 [source, env]
@@ -75,7 +75,7 @@ DB_HOST=127.0.0.1
 DB_USER=root
 ----
 
-Now you can access those variable by using the `Env` provider.
+现在你可以使用 `Env` 提供者来访问这些变量。
 
 [source, js]
 ----
@@ -83,29 +83,29 @@ const Env = use('Env')
 Env.get('APP_SECRET')
 ----
 
-NOTE: `Env.get` always returns a string. If you want to get a boolean value you'll need to check it as follows. +
+注意：`Env.get` 总是返回一个字符串。如果你想获得一个布尔值，你需要像这样校验它。 +
   `Env.get('...') === 'true'`
 
-==== Different .env file
-At times you may want to load a different `.env` file stored on your server at a different location. Same can be done as follows.
+==== 不同的.env文件
+有时您可能想要在不同的位置加载存储在服务器上的不同 `.env` 文件。同样可以做到，代码如下。
 
 [source, bash]
 ----
 ENV_PATH=/user/.env node server.js
 ----
 
-==== Disabling .env file
-If `.env` file is missing, AdonisJs throws an exception by default. However, you turn off the exception as follows.
+==== 禁用.env文件
+如果 `.env` 文件丢失，AdonisJs 默认会引发异常。但是，如下关闭异常。
 
 [source, bash]
 ----
 ENV_SILENT=true node server.js
 ----
 
-==== Testing variables
-If your application is started with `NODE_ENV=testing`, AdonisJs attempts to load `.env.testing` file from the root of your application.
+==== 测试变量
+如果您的应用程序以 `NODE_ENV=testing` 启动，AdonisJs会尝试从应用程序的根目录加载 `.env.testing` 文件。
 
-This file overrides the values from `.env` file, so that you can have slightly different configuration when running tests.
+该文件覆盖 `.env` 文件中的值，以便在运行测试时可以有稍微不同的配置。
 
 .env.testing
 [source, env]
