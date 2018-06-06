@@ -7,27 +7,27 @@ category: HTTP生命周期
 
 toc::[]
 
-AdonisJs routing favors *REST conventions*, but still, give enough room to create and register custom routes. In this guide, we learn about creating routes, binding controller methods and different ways to organize them.
+AdonisJs路由热衷 *REST约定* ，但仍然有足够的空间来创建和注册自定义路由。在本指南中，我们学习如何创建路由，绑定控制器方法以及用不同的方式来组织它们。
 
-All of the application routes are registered inside `start/routes.js` file. Also, you are free to create multiple files for routes and just require them inside the `routes.js` file.
+所有的应用程序路径都在 `start/routes.js` 文件中注册。另外，你可以自由创建多个路由文件，只需要在 `routes.js` 文件中引用它们。
 
-== Basic example
-The most basic route requires a URL path and closure to be executed. The returned value from the closure is sent back as the response.
+== 基本例子
+最基本的路由需要执行URL路径和闭包。闭包的返回值作为响应发回。
 
 [source, js]
 ----
 Route.get('/', () => 'Hello world')
 ----
 
-After starting the server using `adonis serve --dev`, if you visit link:http://localhost:3333[localhost:3333], you see the *Hello world* in the browser.
+使用`adonis serve --dev`启动服务器后，如果您访问 link:http://localhost:3333[localhost:3333]，您会在浏览器中看到 *Hello world* 。
 
-== Route methods/verbs
-Restful routes make use of different HTTP methods to indicate the type of request. For example: `POST` method is used to create a record and `GET` is used to fetch record(s).
+== 路由方法/动词
+Restful路由使用不同的HTTP方法来指示请求的类型。例如： `POST` 方法用于创建记录， `GET` 用于获取记录。
 
-You can define routes for different HTTP methods using one of the following methods.
+您可以使用以下方法为不同的HTTP方法定义路由。
 
 ==== get
-Create a route with GET method.
+使用GET方法创建路由。
 
 [source, js]
 ----
@@ -36,7 +36,7 @@ Route.get('/', async () => {
 ----
 
 ==== post
-Create a route with POST method.
+使用POST方法创建路由。
 
 [source, js]
 ----
@@ -45,7 +45,7 @@ Route.post('/', async () => {
 ----
 
 ==== put/patch
-The `PUT` and `PATCH` methods are used to update a resource.
+`PUT` 和 `PATCH` 方法用于更新资源。
 
 [source, js]
 ----
@@ -57,7 +57,7 @@ Route.patch('/', async () => {
 ----
 
 ==== delete
-The `DELETE` method indicates removing a resource.
+`DELETE` 方法表示删除资源。
 
 [source, js]
 ----
@@ -66,7 +66,7 @@ Route.delete('/', async () => {
 ----
 
 ==== route
-Also, you can create routes that respond to multiple verbs using the `Route.route` method.
+另外，您可以使用 `Route.route` 方法创建响应多个动词的路由。
 
 [source, js]
 ----
@@ -75,8 +75,8 @@ Route.route('/', async () => {
 }, ['GET', 'POST'])
 ----
 
-== Route parameters
-Creating routes with static paths are not quite helpful, and often you need a way to accept dynamic data as part of the URL, for example:
+== 路由参数
+使用静态路径创建路由并不是很有用，而且通常需要一种方法来接受动态数据作为URL的一部分，例如：
 
 [source, bash]
 ----
@@ -85,7 +85,7 @@ Creating routes with static paths are not quite helpful, and often you need a wa
 /posts/300
 ----
 
-You would need a way to fetch the post id from the URL and render the appropriate post. The same is achieved by defining route parameters.
+您需要一种方法从URL中获取帖子ID并呈现相应的帖子。通过定义路由参数也是一样。
 
 [source, js]
 ----
@@ -95,44 +95,44 @@ Route.get('posts/:id', async ({ params }) => {
 })
 ----
 
-The `:id` is a route parameter which is passed as part of the `params` object. Also, you can make it optional by adding `?` to the parameter. For example:
+`:id` 是作为 `params` 对象的一部分传递的路由参数。另外，你可以通过在参数中加入 `?` 使其成为可选的。例如：
 
 [source, js]
 ----
 Route.get('make/:drink?', async ({ params }) => {
-  // use Coffee as fallback when drink is not defined
+  // 当:drink未定义时，使用Coffee作为默认值
   const drink = params.drink || 'Coffee'
 
   return `Will make ${drink} for you`
 })
 ----
 
-== Routing for SPA's
-Quite often you find yourself creating a SPA ( single page application ), where you want to render a single view from the server and handle routing on front-end using your favorite front end framework.
+== SPA的路由
+通常你会发现自己创建了一个SPA（单页面应用程序），在那里你想要从服务器渲染一个单一的视图，并使用你最喜欢的前端框架处理前端的路由。
 
-This can be done by defining a wildcard route.
+这可以通过定义通配符路由来完成。
 
 [source, js]
 ----
 Route.any('*', ({ view }) => view.render('main'))
 ----
 
-If you have any other specific routes, they should be defined before the wildcard route. For example:
+如果您有任何其他特定路由，则应在通配符路由之前对其进行定义。例如：
 
 [source, js]
 ----
 Route.get('/api/v1/users', 'UserController.index')
 
-// wildcard route
+// 通配符路由
 Route.any('*', ({ view }) => view.render('main'))
 ----
 
-== Binding controllers
-Defining closures as the route actions are not scalable, since writing all the code inside a single file is never desired and neither practical.
+== 绑定控制器
+将所有代码写入单个文件不太合理，也不实用，因为将匿名函数定义为路由动作扩展性较差。
 
-AdonisJs being an MVC framework offers a nice abstractions layer called *Controllers* to keep all the request handling logic inside custom ES6 classes.
+AdonisJs是一个MVC框架，它提供了一个名为 *Controllers* 的抽象层，用于将所有请求处理逻辑放在一个自定义ES6类中。
 
-Let's create a controller using the `make:controller` command.
+我们使用 `make:controller` 命令创建一个控制器。
 [source, bash]
 ----
 adonis make:controller Posts
@@ -144,13 +144,13 @@ adonis make:controller Posts
 ✔ create  app/Controllers/Http/PostController.js
 ----
 
-The next step is to bind the controller method to the route. It is defined as a `dot (.)` separated string.
+下一步是将控制器方法绑定到路由。它被定义为一个 `点（.）` 分隔的字符串。
 
 [source, js]
 ----
 Route.get('posts', 'PostController.index')
 ----
-Finally, we need to create the `index` method on the controller class.
+最后，我们需要在控制器类上创建 `index` 方法。
 
 [source, js]
 ----
@@ -166,7 +166,7 @@ module.exports = PostController
 ----
 
 == Route middleware
-You can apply selected middleware to routes by calling the `middleware` method.
+您可以通过调用“middleware”方法将选定的中间件应用于路由。
 
 [source, js]
 ----
@@ -175,7 +175,7 @@ Route
   .middleware(['auth'])
 ----
 
-The `middleware` method accepts an array of named middleware, which is defined inside `start/kernel.js` file.
+`middleware` 方法接受一个已命名的中间件数组，它在 `start/kernel.js` 文件中定义。
 
 .start/kernel.js
 [source, js]
@@ -185,17 +185,17 @@ const namedMiddleware = {
 }
 ----
 
-Click link:middleware[here] to learn more about middleware.
+点击 link:middleware[这里] 了解更多关于中间件的信息。
 
-== Named routes
-Routes are defined inside `start/routes.js` file but referenced everywhere inside your application. For example: Defining a form action to submit to a particular URL.
+== 命名路线
+路径是在 `start/routes.js` 文件中定义的，但在应用程序中的任何地方都可以引用。例如：定义表单操作以提交给特定的URL。
 
 [source, js]
 ----
 Route.post('users', 'UserController.store')
 ----
 
-Inside the template
+在模板中
 
 [source, edge]
 ----
@@ -203,9 +203,9 @@ Inside the template
 </form>
 ----
 
-Now if you change your route path from `/users` to something else, you have to remember to come back and change it inside the template as-well.
+现在，如果您将路由路径从 `/users` 更改为其他路径，则必须记得回来并在模板内改变它。
 
-To overcome this problem, you can name your routes uniquely and reference them in other part of the program.
+为了克服这个问题，你可以唯一地命名你的路由并在程序的其他部分引用它们。
 
 [source, js]
 ----
@@ -214,7 +214,7 @@ Route
   .as('storeUser')
 ----
 
-The `as` method gives your route a name. Now inside your template, you can reference it using a view global.
+`as` 方法给你的路线命名。现在在您的模板中，您可以使用视图全局引用它。
 
 [source, edge]
 ----
@@ -222,10 +222,10 @@ The `as` method gives your route a name. Now inside your template, you can refer
 </form>
 ----
 
-== Route formats
-Route formats open up a new way for link:https://en.wikipedia.org/wiki/Content_negotiation[Content negotiation, window="_blank"], where you can accept the response format as part of the URL.
+== 路线格式
+路由格式为 link:https://en.wikipedia.org/wiki/Content_negotiation[内容协商, window="_blank"] 打开了一条新途径，您可以在其中定义接受响应格式作为URL的一部分。
 
-Route format is a contract between the client and the server on which type of response to be created. For example:
+路径格式是客户端和服务器之间的一种契约，其中要创建的响应类型。例如：
 
 [source, js]
 ----
@@ -243,15 +243,15 @@ Route
   .formats(['json'])
 ----
 
-Now the `users` endpoint can respond in multiple formats, based upon the URL.
+现在， `users` 可以根据URL以多种格式进行响应。
 
 /users.json::
-Return an array of users in JSON.
+以JSON形式返回用户数组。
 
 /users::
-Render the view and returns HTML
+渲染视图并返回HTML
 
-Also, you can disable the default URL and always force the client to define the format.
+此外，您可以禁用默认URL并始终强制客户端定义格式。
 
 [source, js]
 ----
@@ -270,44 +270,44 @@ Route
   .formats(['json', 'html'], true)
 ----
 
-Passing `true` as the second parameter makes sure that the client defines one of the expected formats. Otherwise, a 404 is thrown.
+传递 `true` 作为第二个参数可以确保客户端定义了一种预期的格式。否则，会抛出404错误。
 
-== Route resources
-If you like building web apps around REST conventions then *route resources* helps you in defining conventional routes by writing less code.
+== 资源路由
+如果您喜欢围绕REST约定构建Web应用程序，那么 *资源路由* 可以通过编写更少的代码来帮助您定义传统路由。
 
-NOTE: It is required to bind a *Controller* to the resource. Binding a closure throws an exception.
+NOTE: 需要将 *Controller* 绑定到资源。绑定一个闭包会抛出一个异常。
 
 [source, js]
 ----
 Route.resource('users', 'UsersController')
 ----
 
-The `Route.resource` method under the hood creates a total of 7 routes
+默认的 `Route.resource` 方法会创建7条路由
 
 [role="resource-table", options="header", cols="40%, 10%, 25%, 25%"]
 |===
-| Url | Verb  | Name | Controller Method
-| users [description]#Show a list of all the users# | GET | users.index | `UsersController.index`
-| users/create [description]#Render a form to be used for creating a new user# | GET  | users.create | `UsersController.create`
-| users [description]#Create/save a new user.# | POST | users.store | `UsersController.store`
-| users/:id [description]#Display a single user# | GET | users.show | `UsersController.show`.
-| users/:id/edit [description]#Render a form to update an existing user.# | GET | users.edit | `UsersController.edit`
-| users/:id [description]#Update user details.# | PUT or PATCH | users.update | `UsersController.update`
-| users/:id [description]#Delete a user with id.# | DELETE | users.destroy | `UsersController.destroy`
+| Url | 动词  | 名称 | 控制器方法
+| users [description]#显示所有用户# | GET | users.index | `UsersController.index`
+| users/create [description]#渲染一个用于创建用户的表单# | GET  | users.create | `UsersController.create`
+| users [description]#新建/保存一个新用户# | POST | users.store | `UsersController.store`
+| users/:id [description]#显示一个用户# | GET | users.show | `UsersController.show`.
+| users/:id/edit [description]#渲染一个用于更新用户的表单# | GET | users.edit | `UsersController.edit`
+| users/:id [description]#更新用户的详情。# | PUT or PATCH | users.update | `UsersController.update`
+| users/:id [description]#通过ID删除一个用户# | DELETE | users.destroy | `UsersController.destroy`
 |===
 
-Nested resources can be created with `dot (.)` notation.
+嵌套资源可以使用 `点（.）` 表示法创建。
 
 [source, js]
 ----
 Route.resource('posts.comments', 'CommentsController')
 ----
 
-=== Filtering resources
-You can limit the number of routes a resource should create by chaining handful of methods.
+=== 过滤资源
+您可以通过链接少数方法来限制资源应该创建的路由数量。
 
 ==== apiOnly
-Limit the routes to only 5 by removing `users/create` and `users/:id/edit`. Since when writing an API server, you may want to render the forms within the API consumer (e.g., a mobile app, frontend web framework, etc.).
+通过删除 `users/create` and `users/:id/edit` 路由来限制仅创建5条路由。由于在编写API服务器时，您可能想要在API客户端内呈现表单（例如，移动应用程序，前端Web框架等）。
 
 [source, js]
 ----
@@ -316,8 +316,8 @@ Route
   .apiOnly()
 ----
 
-==== only([names])
-Remove all other routes but not the ones passed to the `only` method.
+==== only([名称])
+删除所有其他路由，仅保留传递给 `only` 方法的路由。
 
 [source, js]
 ----
@@ -326,8 +326,8 @@ Route
   .only(['index', 'show'])
 ----
 
-==== except([names])
-Remove route for names passed to the `except` method.
+==== except([名称])
+删除传递给 `except` 方法的名称的路由。
 
 [source, js]
 ----
@@ -336,8 +336,8 @@ Route
   .except(['index', 'show'])
 ----
 
-=== Resource Middleware
-You can attach middleware to the resource, just like you would do to a single route.
+=== 资源中间件
+您可以像您对单个路由所做的一样将中间件附加到资源。
 
 [source, js]
 ----
@@ -346,7 +346,7 @@ Route
   .middleware(['auth'])
 ----
 
-Since attaching auth middleware to all the routes is not always desired, you can customize the behavior by passing a map of values.
+由于将auth中间件附加到所有路由并不总是需要，因此可以通过传递值映射来自定义行为。
 
 [source, js]
 ----
@@ -357,10 +357,10 @@ Route
   ]))
 ----
 
-Here we have defined the `auth` middleware on *store*, *update* and *destroy* controller methods.
+这里我们定义了 *store*，*update* 和 *destroy* 控制器方法中的 `auth` 中间件。
 
-=== Resource Formats
-Also, you can define the formats for all the resourceful routes, just like the way you do for a single route or a group of routes.
+=== 资源格式
+此外，您可以为所有的资源路由定义格式，就像为单个路线或一组路线做的那样。
 
 [source, js]
 ----
@@ -369,10 +369,10 @@ Route
   .formats(['json'])
 ----
 
-== Routing domains
-AdonisJs makes it super easy to serve multiple domains within a single codebase. The domains can be static endpoints like `blog.adonisjs.com` or dynamic endpoints like `:user.adonisjs.com`.
+== 路由域名
+AdonisJs使得在单个代码库中为多个域提供服务变得非常简单。这些域可以是像 `blog.adonisjs.com` 这样的静态端点或像 `:user.adonisjs.com` 这样的动态端点。
 
-TIP: You can define the domain on a single route as well, but it is a good idea to group domain specific routes.
+TIP: 您也可以在单个路由上定义域，但将域专用路由分组是个好主意。
 
 [source, js]
 ----
@@ -385,19 +385,19 @@ Route
   .domain(':user.myapp.com')
 ----
 
-Now if you visit `virk.myapp.com`, You see the above route is executed.
+现在，如果你访问 `virk.myapp.com` ，你会看到上面的路由被执行。
 
-== Route groups
-Quite often your application routes share common logic/configuration around them. So instead of re-defining the configuration on each route, it's better to group them. For example:
+== 路由组
+很多时候，你的应用程序路线共享共同的逻辑/配置。因此，不要在每条路线上重新定义配置，最好将它们分组。例如：
 
-Not desired
+不需要
 [source, js]
 ----
 Route.get('api/v1/users', 'UserController.index')
 Route.post('api/v1/users', 'UserController.store')
 ----
 
-Instead, we can make use of the route's group here.
+相反，我们可以在这里使用路线的组。
 
 [source, js]
 ----
@@ -409,10 +409,10 @@ Route
   .prefix('api/v1')
 ----
 
-Just like the `prefix` method, you can call the following methods on a group of routes.
+就像 `prefix` 方法一样，您可以在一组路由上调用以下方法。
 
-==== middleware
-Define middleware on a group of routes. All group middleware are executed before the middleware defined on a single route.
+==== 中间件
+在一组路由上定义中间件。所有组中间件都是在单个路由上定义的中间件之前执行的。
 
 [source, js]
 ----
@@ -422,8 +422,8 @@ Route
   .middleware(['auth'])
 ----
 
-==== namespace
-Often we have multiple controllers grouped inside the same folder. With the `namespace` method you can specify the folder on the group. For example with the following folder structure:
+==== 命名空间
+通常我们有多个控制器分组在同一个文件夹内。通过 `namespace` 方法，您可以指定组中的文件夹。例如，使用以下文件夹结构：
 
 [source, bash]
 ----
@@ -436,7 +436,7 @@ Often we have multiple controllers grouped inside the same folder. With the `nam
 |                  └── RoleController.js
 ----
 
-Normally you would define the resource as follows:
+通常你会定义资源如下：
 
 [source, js]
 ----
@@ -448,7 +448,7 @@ Route.
   .prefix('api/v1')
 ----
 
-Using the `namespace` method you can simplify this group to the this:
+使用 `namespace` 方法，你可以简化这个组：
 
 [source, js]
 ----
@@ -462,7 +462,7 @@ Route
 ----
 
 ==== domain
-Specify routes on a group of routes.
+指定一组路由上的路由。
 
 [source, js]
 ----
@@ -473,7 +473,7 @@ Route
 ----
 
 ==== formats
-Define formats on a group of routes.
+定义一组路由上的格式。
 
 [source, js]
 ----
@@ -483,10 +483,10 @@ Route
   .formats(['json', 'html'])
 ----
 
-== Route renderer
-Route renderer is a one liner to render a view without creating a controller method or binding a closure.
+== 路由渲染器
+路由渲染器可以直接渲染视图而不需要创建控制器方法或绑定闭包。
 
-Instead of following
+为了取代下面的代码
 
 [source, js]
 ----
@@ -495,24 +495,24 @@ Route.get('/', async function ({ view }) {
 })
 ----
 
-We can write
+我们可以这样写
 
 [source, js]
 ----
 Route.on('/').render('welcome')
 ----
 
-## Extending routes
-AdonisJs makes it possible to extend routes by adding your own methods to it known as *macros*.
+## 扩展路由
+AdonisJs可以通过将自定义的方法添加到 *macros* 来扩展路由。
 
-NOTE: Since the code to extend the routes needs to be executed once, you can make use of providers or ignitor hooks. Make sure to read link:[how to extend] guide before continuing.
+NOTE: 由于扩展路由的代码需要执行一次，因此可以使用提供程序或触发器挂钩。请务必在继续之前阅读 link:[如何扩展]。
 
 [source, js]
 ----
 const Route = use('Route')
 const Server = use('Server')
 
-// middleware function
+// 中间件函数
 async function bindMiddleware (ctx, next, [model, identifier, key]) {
   const identifierValue = ctx.params[identifier]
 
@@ -523,17 +523,17 @@ async function bindMiddleware (ctx, next, [model, identifier, key]) {
   await next()
 }
 
-// Pre register middleware with a name
+// 使用名字预先注册中间件
 Server.registerNamed({ bm: bindMiddleware })
 
-// Add macro
+// 添加宏
 Route.Route.macro('bind', function (model, identifier, key) {
   this.middleware(`bm:${model},${identifier},${key}`)
   return this
 })
 ----
 
-The `bind` method can be used as follows.
+`bind` 方法可以如下使用。
 
 [source, js]
 ----
@@ -544,9 +544,9 @@ Route
   .bind('App/Models/User', 'id', 'user')
 ----
 
-Here we added the `bind` method to the link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Route/index.js[Route class] prototype. This method internally adds a middleware to the route, which fetches a record from the database, using a model.
+在这里，我们将`bind`方法添加到 link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Route/index.js[Route 类] 原型。 此方法在内部向路由添加中间件，该中间件使用模型从数据库中提取记录。
 
-Also you can add macros to the following classes.
+您也可以将宏添加到以下类中。
 
 [ol-shrinked]
 1. link:https://github.com/adonisjs/adonis-framework/blob/develop/src/Route/Group.js[RouteGroup]
