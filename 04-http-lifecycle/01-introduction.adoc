@@ -3,35 +3,35 @@ permalink: http-context
 title: 介绍
 category: HTTP生命周期
 ---
-= Introduction
+= 介绍
 
 toc::[]
 
-AdonisJs is primarily a web framework which deals over HTTP protocol. In this guide, we learn how AdonisJs handles the HTTP requests through registered routes and middleware.
+AdonisJs主要是一个处理HTTP协议的Web框架。在本指南中，我们将学习AdonisJs如何通过注册路由和中间件来处理HTTP请求
 
-== Request flow
-Below is a flow chart on how HTTP request flow works +
+== 请求流程
+以下是关于HTTP请求流如何工作的流程图 +
 link:http://res.cloudinary.com/adonisjs/image/upload/q_100/v1502383746/Adonis-Http-Request-Flow_grqcfd.jpg[image:http://res.cloudinary.com/adonisjs/image/upload/q_100/v1502383746/Adonis-Http-Request-Flow_grqcfd.jpg[width="400px"], window="_blank"]
 
 [ol-spaced]
-1. The server level middleware stack includes a middleware to serve static resources from the `public` directory. You should only add server level middleware when you want it to be executed even when no routes for the current URL have been registered.
-2. If a request is not intercepted by server level middleware, then AdonisJs looks for a registered route, if a route is found, the global, named middleware and route action is executed.
-3. Otherwise, a 404 exception is thrown.
+1. 服务器级中间件堆栈包含一个中间件，用于提供 `public` 目录中的静态资源。即使没有注册当前URL的路由，也应该在需要执行时添加服务器级中间件。
+2. 如果请求不被服务器级中间件拦截，那么AdonisJs将查找已注册的路由，如果找到路由，则会执行全局的，已命名的中间件和路由操作。
+3. 否则，会抛出404异常。
 
-== Http context
-Since Node.js handles HTTP requests concurrently, each request needs to be identified and managed uniquely. AdonisJs passes a *Context* object to all route handlers, this object holds everything you need to handle an HTTP request.
+== Http上下文
+由于Node.js同时处理HTTP请求，因此每个请求都需要进行唯一标识和管理。 AdonisJs将 *Context* 对象传递给所有路由处理程序，此对象包含处理HTTP请求所需的所有内容。
 
-So when you bind a handler to the `Route`, that handler is executed for each request matching that URL and receives a unique `context` instance.
+因此，当你将一个处理程序绑定到 `Route` 时，该处理程序将针对与该URL匹配的每个请求执行，并接收唯一的 `context` 实例。
 
 [source, js]
 ----
-Route.get('/', (ctx) => {
+Route.get('/', (ctx) => { 
   // ctx.request
   // ctx.response
 })
 ----
 
-Alternatively, you can make use of ES6 destructuring.
+或者，您可以使用ES6解构。
 
 [source, js]
 ----
@@ -41,17 +41,17 @@ Route.get('/', ({ request, response }) => {
 })
 ----
 
-The best part of context object is that you can pull a lot more objects from it. For example: `auth`, `view` etc.
+上下文对象的最好的部分是你可以从中获取更多的对象。例如：`auth` ， `view` 等
 
-== Public directory
-The `public` directory in the root of your application is registered to serve static resources like *css*, *images* and *fonts*, etc.
+== 公共目录
+注册应用程序根目录中的 `public` 目录来提供静态资源，如 *css*，*图片* 和 *字体* 等。
 
-All files inside this directory are available publicly without any authentication or restrictions.
+该目录内的所有文件都可以公开使用，不需要任何认证或限制。
 
-== Views
-There are a couple of ways to make use of views, and it is essential to understand the difference between them. One way is to import the *View* provider, the other is to use HTTP specific view instance.
+== 视图
+有几种方法可以使用视图，并且了解它们之间的区别非常重要。一种方法是提供者导入 *视图* ，另一种方法是使用HTTP特定的视图实例。
 
-=== Import manually
+=== 手动导入
 [source, js]
 ----
 const View = use('View')
@@ -60,7 +60,7 @@ const View = use('View')
 const html = View.render('home', {})
 ----
 
-=== Http view instance
+=== Http视图实例
 [source, js]
 ----
 Route.get('/', async ({ view }) => {
@@ -68,6 +68,6 @@ Route.get('/', async ({ view }) => {
 })
 ----
 
-The fundamental difference is that the HTTP view instance contains a bunch of requests specific locals like *request*, the *authenticated user*, etc.
+根本区别在于，HTTP视图实例包含一系列请求特定的本地变量，如 *请求*，*经过认证的用户* 等。
 
-So always make sure to use the HTTP view instance during request lifecycle.
+因此，请始终确保在请求生命周期中使用HTTP视图实例。
