@@ -7,14 +7,14 @@ category: 起步
 
 toc::[]
 
-In this guide, we learn how AdonisJs apps are structured and how gracefully it scales as your project grows.
+在本指南中，我们将学习AdonisJs应用程序的结构以及它随着项目的发展如何优雅地扩展。
 
-The philosophy of AdonisJs is always to start lean and grow big on demand. The `adonis` command-line comes with a bunch of *commands* to create new directories/files whenever you need them.
+AdonisJs的理念始终是开始精益求精，并随需而变。 `adonis` 命令行带有一堆 *命令*，用于在需要时创建新的目录/文件。
 
-TIP: Run `adonis --help` to see list of available commands
+TIP: 运行 `adonis --help` 来查看可用命令的列表
 
-== Slim structure
-Slim structure is the bare minimum you need in order to work with AdonisJs.
+== 精简版结构
+为了与AdonisJs合作，Slim结构是最基本的。
 
 ++++
 <pre class="highlight line-numbers language-bash" data-line="2,5">
@@ -33,22 +33,23 @@ Slim structure is the bare minimum you need in order to work with AdonisJs.
 
 [options="header", cols="5,95"]
 |====
-| File/Directory | Description
-| ace | The ace file bootstraps the command line tool for your project-specific commands. Running `node ace <commandName>` executes the command.
-| package.json | The standard Node.js packages file.
-| public | The public directory is used to store static assets like *Css, Javascript files or images*
-| server.js | This file bootstraps the HTTP server. Running `node server.js` starts the HTTP server on the port defined inside the .env file. +
-Whereas in development it is recommended to use `adonis serve --dev`.
-| start/app.js | This file is required to register the providers, commands, and aliases. You can ignore this file for now especially if you are not familiar with providers.
-| start/kernel.js | The HTTP Middleware are registered inside this file.
-| start/routes.js | This file is used to define HTTP routes.
+| 文件/目录 | 描述
+| ace | ace文件为您的项目特定命令引导命令行工具。运行 `node ace <命令名>` 执行该命令。
+| package.json | 标准的Node.js包文件。
+| public | 用于存放静态资源的公共文件夹，如 *Css，Javascript文件或图片*
+| server.js | 该文件用于启动HTTP服务器。运行 `node server.js` 会启动.env文件中定义的端口上的HTTP服务器。 +
+而在开发中，建议使用 `adonis serve --dev` 。
+| start/app.js | 该文件用于注册提供者，命令和别名。您现在可以忽略此文件，特别是如果您不熟悉提供者。
+| start/kernel.js | HTTP中间件注册在这个文件中。
+| start/routes.js | 该文件用于定义HTTP路由。
 |====
 
-== The app directory
+== 应用程序目录
 
-The `app` directory stores all of your application code such as *Controllers*, *Models*, *Commands*.
 
-AdonisJs has the concept of autoloading the `app` directory. This means that instead of requiring files with the relative path, you can require files with a namespace. For example:
+`app` 目录存储您的所有应用程序代码,例如 *控制器*, *模型*, *命令*。
+
+AdonisJs具有自动加载 `app` 目录的概念。这意味着您可以不需要具有相对路径的文件，而是需要具有命名空间的文件。例如：
 
 [source, bash]
 ----
@@ -57,64 +58,64 @@ AdonisJs has the concept of autoloading the `app` directory. This means that ins
 │       └── User.js
 ----
 
-Normally you would require the above file as
+通常你会需要上面的文件
 
 [source, js]
 ----
 const UserService = require('../app/Services/User')
 ----
 
-With autoloading in place, it can be imported as
+使用自动加载时，可以导入为
 
 [source, js]
 ----
 const UserService = use('App/Services/User')
 ----
 
-The benefit of the latter approach is that the *namespace* always remains same and you never have to deal with relative paths by typing `../`.
+后面一种方法的好处是，*命名空间* 始终保持相同，您不必通过输入 `../` 来处理相对路径。
 
-NOTE: The autoloading namespace is defined inside the link:https://github.com/adonisjs/adonis-slim-app/blob/master/package.json#L24[package.json, window="_blank"] file. You are free to define more/unique namespaces.
+NOTE: 自动加载命名空间是在 link:https://github.com/adonisjs/adonis-slim-app/blob/master/package.json#L24[package.json, window="_blank"] 文件中定义的。您可以自由定义更多/唯一的命名空间。
 
-== Views
-The application views are stored inside `resources/views` directory. Each view file ends with `.edge` and uses link:http://edge.adonisjs.com/[edge, window="_blank"] as the templating engine.
+== 视图
+应用程序视图存储在 `resources/views` 目录中。每个视图文件以 `.edge` 结尾，并使用 link:http://edge.adonisjs.com/[edge, window="_blank"] 作为模板引擎。
 
-You can create new views using the `adonis make:view` command.
+您可以使用 `adonis make：view` 命令创建新的视图。
 
 [source, bash]
 ----
 adonis make:view welcome
 ----
 
-For nested views running the following command
-
+对于嵌套视图运行以下命令
 [source, bash]
 ----
 adonis make:view users.list
 ----
 
-== Static assets
-The `public` directory in your app is dedicated to store all of the frontend related assets like *css*, *images* or *javascript files*.
+== 静态资源
+您应用中的 `public` 目录专门用于存储所有与前端相关的资源，如 *css*，*图片* 或 *javascript文件*。
 
-You access these files without adding `/public` to the URL. For example:
+您可以在不向URL添加 `/public` 的情况下访问这些文件。例如：
 
-The `public/style.css` file can be accessed by visiting link:http://127.0.0.1:3333/style.css[127.0.0.1:3333/style.css]
+`public/style.css` 文件可以通过 link:http://127.0.0.1:3333/style.css[127.0.0.1:3333/style.css] 来访问
 
-== Config
-To keep your applications away from configuration debt, AdonisJs gives you a dedicated directory `/config` to store all of the application configuration.
+== 配置
+为了让应用程序避免配置债务，AdonisJs为您提供专用目录 `/config` 来存储所有应用程序配置
 
-It is recommended to keep configuration at one place and make use of *Environment* variables for manging secrets. link:configuration-and-env[Learn more]
+建议在一个地方进行配置，并使用 *环境* 变量来管理秘钥。
+link:configuration-and-env[了解更多]
 
-== Tests
-All of the application tests are stored inside in the `test` directory. The testing package is not included by default and hence you can install it as defined link:testing#_setup[here].
+== 测试
+所有的应用程序测试都存储在 `test` 目录中。测试包默认不包含，因此您可以像 link:testing#_setup[这里]介绍的那样安装它。
 
-Once the package has been setup, you can run the following command(s).
+软件包安装完成后，您可以运行以下命令。
 
 [source, bash]
 ----
 adonis make:test user
 ----
 
-And run tests as follows.
+并按如下方式运行测试。
 
 [source, bash]
 ----
