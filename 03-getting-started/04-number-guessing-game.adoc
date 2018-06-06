@@ -3,62 +3,62 @@ permalink: number-guessing-game
 title: 猜数字游戏
 category: 起步
 ---
-= Number guessing game
+= 猜数字游戏
 
 toc::[]
 
-In this guide, we create a simple number guessing game as a way to learn more about the framework. By the end of this guide, you will know how to make use of *views*, *create new routes* and *bind controllers* to them.
+在本指南中，我们通过创建一个简单的猜数字游戏来了解该框架。在本指南结束时，您将知道如何使用 *视图*，*创建新路由* 和 *绑定控制器*。
 
-TIP: You can see the final working version on link:https://adonis-number-guessing-game.glitch.me/?number=5[glitch, window="_blank"]. Also, you can checkout the code using the following remix button. +
+TIP: 您可以在 link:https://adonis-number-guessing-game.glitch.me/?number=5[glitch, window="_blank"] 上看到最终的工作版本。 此外，您可以通过下面的按钮来检出代码。 +
 link:https://glitch.com/edit/#!/remix/adonis-number-guessing-game[image:https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg[], window="_blank"]
 
-== Game story
-The number guessing takes input from the user and matches it against a random number. If the number matches, it is called a match, otherwise it is a pass.
+== 游戏故事
+数字猜测需要用户输入，并将其与一个随机数进行匹配。如果号码匹配，则称为匹配，否则为不通过。
 
-To keep it simple, we accept the user guessed number as the query string in the URL.
+为了简单起见，我们接受URL中的查询字符串作为用户猜测的号码。
 
-== Setup
-Let's create a new project using `adonis` command. We create a slim project since we do not need a database or models for this app.
+== 设置
+我们使用 `adonis` 命令创建一个新项目。我们创建一个精简版的项目，因为我们不需要这个应用程序的数据库或模型。
 
 [source, bash]
 ----
 adonis new number-game --slim
 ----
 
-Now, `cd` into the created directory and make sure you can run the application using `adonis serve` command.
+现在，`cd` 进入创建的目录中，并确保可以使用 `adonis serve` 命令运行该应用程序。
 
-== Routing
-Let's start by removing everything from the `start/routes.js` file and paste the following code inside it.
+== 路由
+我们先删除 `start/routes.js` 文件中的所有内容，并将下面的代码粘贴到其中。
 
 [source, js]
 ----
 const Route = use('Route')
 
 Route.get('/', ({ request }) => {
-  /** get number from the url query string */
+  /** 从URL查询字符串获取数字 */
   const guessedNumber = Number(request.input('number'))
 
-  /** if number is not specified, let the user know about it */
+  /** 如果没有指定号码，提醒用户 */
   if (!guessedNumber) {
-    return 'Please specify a number by passing ?number=<num> to the url'
+    return '请通过在URL后加 ?number=<数字> 的方式指定一个数字'
   }
 
-  /** generate a random number */
+  /** 生成一个随机数 */
   const randomNumber = Math.floor(Math.random() * 20) + 1
 
-  /** let the user know about the match */
+  /** 让用户知道匹配结果 */
   return randomNumber === guessedNumber
-  ? 'Matched'
-  : `Match failed. The actual number is ${randomNumber}`
+  ? '匹配'
+  : `匹配失败。实际的数字是 ${randomNumber}`
 })
 ----
 
-Now if we visit link:http://127.0.0.1:3333?number=5[127.0.0.1:3333?number=5] and keep on changing the `number` between 1-20, we see *Matched* or the *Match failed* statement.
+现在，如果我们访问 link:http://127.0.0.1:3333?number=5[127.0.0.1:3333?number=5] 并继续在1-20之间更改 `number`，我们会看到 *匹配* 或 *匹配失败* 的字样。
 
-The logic of number guessing game remains the same, but we start extracting this code into a controller and also create a view for it.
+数字猜测游戏的逻辑保持不变，但我们开始将此代码抽取到控制器中，并为其创建一个视图。
 
-== Http controller
-Let's create a new controller by running the following command.
+== Http控制器
+我们通过运行以下命令创建一个新的控制器。
 
 [source, bash]
 ----
@@ -71,7 +71,7 @@ adonis make:controller Game
 ✔ create  app/Controllers/Http/GameController.js
 ----
 
-Now open the `GameController.js` file and paste the following code into it.
+现在打开 `GameController.js` 文件并将以下代码粘贴到其中。
 
 [source, js]
 ----
@@ -80,41 +80,41 @@ Now open the `GameController.js` file and paste the following code into it.
 class GameController {
 
   render ({ request }) {
-    /** get number from the url query string */
+    /** 从URL查询字符串获取数字 */
     const guessedNumber = Number(request.input('number'))
 
-    /** if number is not specified, let the user know about it */
+    /** 如果没有指定号码，提醒用户 */
     if (!guessedNumber) {
-      return 'Please specify a number by passing ?number=<num> to the url'
+      return '请通过在URL后加 ?number=<数字> 的方式指定一个数字'
     }
 
-    /** generate a random number */
+    /** 生成一个随机数 */
     const randomNumber = Math.floor(Math.random() * 20) + 1
 
-    /** let the user know about the match */
+    /** 让用户知道匹配结果 */
     return randomNumber === guessedNumber
-    ? 'Matched'
-    : `Match failed. The actual number is ${randomNumber}`
+    ? '匹配'
+    : `匹配失败。实际的数字是 ${randomNumber}`
   }
 }
 
 module.exports = GameController
 ----
 
-All we have done is moved the code from the route closure to the controller file. Now, we can remove all the code from `start/routes.js` file and instead bind controller to it.
+我们所做的所有事情都将代码从路由闭包移动到控制器文件。现在，我们可以从 `start/routes.js` 文件中删除所有代码，并将控制器绑定到它上面。
 
 [source, js]
 ----
 Route.get('/', 'GameController.render')
 ----
 
-Now refresh the page, and the game works as expected.
+现在刷新页面，游戏应该按预期工作。
 
-== Views
-AdonisJs makes use of link:http://edge.adonisjs.com/[edge.js, window="_blank"] as the templating engine to power views. Let's learn how to register the view provider and render it from the controller method.
+== 视图
+AdonisJs使用 link:http://edge.adonisjs.com/[edge.js, window="_blank"] 作为模板引擎来支持视图。现在我们学习如何注册视图提供者并从控制器方法中渲染它。
 
-=== Setup
-All of the providers are registered inside `start/app.js` file. So will the *ViewProvider*.
+=== 设置
+所有提供者都在 `start/app.js` 文件中注册。现在来注册 *ViewProvider*。
 
 [source, js]
 ----
@@ -123,7 +123,7 @@ const providers = [
 ]
 ----
 
-Once the provider has been registered, you can access the `view` instance inside your controller methods as follows.
+一旦提供者被注册，你可以按照如下方式访问控制器方法中的 `view` 实例。
 
 [source, js]
 ----
@@ -131,11 +131,11 @@ render ({ request, view }) {
 }
 ----
 
-Now, all we need to do is, create the `game.edge` template file and write the logic inside it.
+现在，我们需要做的就是创建 `game.edge` 模板文件并在其中写入逻辑。
 
-=== Creating template file
+=== 创建模板文件
 
-Just like the controller, we can use the `make:view` command to create a new view for us.
+就像控制器一样，我们可以使用 `make:view` 命令为我们创建一个新的视图。
 
 [source, bash]
 ----
@@ -148,8 +148,8 @@ adonis make:view game
 ✔ create  resources/views/game.edge
 ----
 
-=== Extracting logic from controller
-Let's remove all the logic from the controller method and instead render a view with required data.
+=== 从控制器提取逻辑
+让我们删除控制器方法中的所有逻辑，使用所需数据渲染视图。
 
 [source, js]
 ----
@@ -161,7 +161,7 @@ class GameController {
     const guessedNumber = Number(request.input('number'))
     const randomNumber = Math.floor(Math.random() * 20) + 1
 
-    /** rendering view */
+    /** 渲染视图 */
     return view.render('game', { guessedNumber, randomNumber })
   }
 }
@@ -173,22 +173,23 @@ module.exports = GameController
 [source, edge]
 ----
 @if(!guessedNumber)
-  <p> Please specify a number by passing <code>?number</code> to the url </p>
+  <p> 请在URL后加上 <code>?number</code> 来指定一个数字</p>
 @elseif(guessedNumber === randomNumber)
-  <h2> Matched </h2>
+  <h2> 匹配 </h2>
 @else
-  <h2>Match failed. The actual number is {{ randomNumber }}</h2>
+  <h2>匹配失败。实际的数字是 {{ randomNumber }}</h2>
 @endif
 ----
 
-As you can see, Edge makes it so simple to write logic in the template files. We are easily able to output the statement we want.
+正如您所看到的，Edge使得在模板文件中编写逻辑非常简单。 我们很容易输出我们想要的语句。
 
-TIP: If you have any questions or concerns, please join us on link:https://forum.adonisjs.com/c/help/view[discourse, window="_blank"] to be a part of our small and helpful community.
+TIP: 如果您有任何问题或疑虑，请加入我们的link:https://forum.adonisjs.com/c/help/view[discourse, window="_blank"] - 成为我们小而乐于助人的社区的一部分。
 
-== Next Steps
-This tutorial was the easiest attempt to make use of different pieces and build a simple application in AdonisJs. Moving forward consider learning more about the following topics.
+== 下一步
+本教程是使用AdonisJs中不同部分并构建简单应用程序的最简单尝试。 考虑了解以下主题来了解更多。
+
 
 [ol-shrinked]
-1. link:routing[Routing]
-2. link:database[Database]
-3. and link:authentication[Authentication]
+1. link:routing[路由]
+2. link:database[数据库]
+3. 和 link:authentication[认证]
